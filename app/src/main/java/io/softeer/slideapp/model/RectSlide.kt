@@ -14,6 +14,8 @@ class RectSlide(
 
     override var type = SlideType.Rect
 
+    override var isSelect = false
+
     override fun toString(): String {
         return "($id), Side: $side, $color"
     }

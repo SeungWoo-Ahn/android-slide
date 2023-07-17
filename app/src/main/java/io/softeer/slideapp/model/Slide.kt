@@ -9,4 +9,5 @@ interface Slide {
     var size : Size
     var color : RGBColor
     var type : SlideType
+    var isSelect : Boolean
 }
