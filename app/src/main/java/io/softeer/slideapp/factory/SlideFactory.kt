@@ -27,5 +27,5 @@ abstract class SlideFactory {
         return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(10)+1)
     }
 
-    abstract fun createRectSlide(type : SlideType) : Slide
+    abstract fun createSlide(type : SlideType) : Slide
 }

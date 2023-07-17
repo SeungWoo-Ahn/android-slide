@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="side_area_width">180dp</dimen>
+    <dimen name="side_area_margin">10dp</dimen>
+    <dimen name="space_margin">5dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="big_content_size">22sp</dimen>
+    <dimen name="small_content_size">16sp</dimen>
+</resources>
