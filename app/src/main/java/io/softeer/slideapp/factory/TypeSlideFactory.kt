@@ -9,9 +9,12 @@ import io.softeer.slideapp.model.Slide
 
 class TypeSlideFactory : SlideFactory() {
 
-    override fun createSlide(type: SlideType, size: Size, color: RGBColor): Slide {
+    override fun createRectSlide(type: SlideType): Slide {
         when(type) {
-            Rect -> return RectSlide(createSlideUuid(), size, color)
+            Rect -> {
+                val side = createSlideSide()
+                return RectSlide(createSlideUuid(), side, createSlideColor())
+            }
         }
     }
 }

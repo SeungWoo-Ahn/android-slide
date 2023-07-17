@@ -6,11 +6,11 @@ import io.softeer.slideapp.enum.SlideType
 
 class RectSlide(
     override val id: String,
-    override var size: Size,
+    private var side: Int,
     override var color: RGBColor,
 ) : Slide {
 
-    private var side = size.width
+    override var size = Size(side, side)
 
     override var type = SlideType.Rect
 

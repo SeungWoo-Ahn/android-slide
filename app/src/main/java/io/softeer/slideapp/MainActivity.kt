@@ -3,25 +3,28 @@ package io.softeer.slideapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.data.Size
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.Button
 import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.factory.TypeSlideFactory
 import io.softeer.slideapp.model.Slide
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),OnClickListener {
+
+    private val factory = TypeSlideFactory()
+    private var clickCount = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val button = findViewById<Button>(R.id.btn_add_slide)
+        button.setOnClickListener(this)
+    }
 
-        val factory = TypeSlideFactory()
-        val slideList = mutableListOf<Slide>()
-        slideList.add(factory.createSlide(SlideType.Rect, Size(216,216), RGBColor(245,0,245,9)))
-        slideList.add(factory.createSlide(SlideType.Rect, Size(384,384), RGBColor(43,124,95,5)))
-        slideList.add(factory.createSlide(SlideType.Rect, Size(108,108), RGBColor(98,244,15,7)))
-        slideList.add(factory.createSlide(SlideType.Rect, Size(233,233), RGBColor(125,39,99,1)))
-        for ((index, slide) in slideList.withIndex()) {
-            Log.i(javaClass.name, "${slide.type.name}${index+1} $slide")
-        }
+    override fun onClick(p0: View?) {
+        val slide = factory.createRectSlide(SlideType.Rect)
+        Log.i(javaClass.name, "${slide.type.name}$clickCount $slide")
+        clickCount++
     }
 }

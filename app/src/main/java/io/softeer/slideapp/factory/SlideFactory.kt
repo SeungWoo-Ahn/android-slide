@@ -4,6 +4,7 @@ import io.softeer.slideapp.data.RGBColor
 import io.softeer.slideapp.data.Size
 import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.model.Slide
+import java.util.Random
 import java.util.UUID
 
 abstract class SlideFactory {
@@ -17,5 +18,14 @@ abstract class SlideFactory {
         return formattedId.joinToString("-")
     }
 
-    abstract fun createSlide(type : SlideType, size : Size, color : RGBColor) : Slide
+    fun createSlideSide() : Int {
+        return Random().nextInt(500) + 1
+    }
+
+    fun createSlideColor() : RGBColor {
+        val random = Random()
+        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(10)+1)
+    }
+
+    abstract fun createRectSlide(type : SlideType) : Slide
 }
