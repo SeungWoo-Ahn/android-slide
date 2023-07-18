@@ -5,6 +5,6 @@ import android.view.View
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("slideColor")
-fun setSlideBackground(view: View, hexColor : String) {
+fun setSlideBackground(view: View, hexColor: String) {
     view.setBackgroundColor(Color.parseColor("#$hexColor"))
 }

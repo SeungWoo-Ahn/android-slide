@@ -1,7 +1,5 @@
 package io.softeer.slideapp.factory
 
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.data.Size
 import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.enum.SlideType.*
 import io.softeer.slideapp.model.RectSlide

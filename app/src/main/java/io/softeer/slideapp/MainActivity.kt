@@ -5,10 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import io.softeer.slideapp.databinding.ActivityMainBinding
-import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.viewmodel.SlideViewModel
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private val viewModel : SlideViewModel by viewModels()
 

@@ -3,10 +3,10 @@ package io.softeer.slideapp.data
 import java.util.Random
 
 data class RGBColor(
-    var R : Int,
-    var G : Int,
-    var B : Int,
-    var alpha : Int = 10
+    var R: Int,
+    var G: Int,
+    var B: Int,
+    var alpha: Int = 10
 ) {
 
     fun changeRandomColor() {
@@ -17,16 +17,20 @@ data class RGBColor(
     }
 
     fun increaseAlpha() {
-        if (alpha == 10) return
+        if (alpha == 10) {
+            return
+        }
         alpha++
     }
 
     fun decreaseAlpha() {
-        if (alpha == 1) return
+        if (alpha == 1) {
+            return
+        }
         alpha--
     }
 
-    fun getHexColorStr() : String {
+    fun getHexColorStr(): String {
         val hexR = R.toString(16).padStart(2, '0')
         val hexG = G.toString(16).padStart(2, '0')
         val hexB = B.toString(16).padStart(2, '0')
