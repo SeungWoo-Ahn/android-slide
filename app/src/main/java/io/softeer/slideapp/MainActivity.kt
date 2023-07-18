@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import io.softeer.slideapp.databinding.ActivityMainBinding
+import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.viewmodel.SlideViewModel
 
 class MainActivity : AppCompatActivity(){
@@ -14,8 +15,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bind : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        bind.apply {
-
-        }
+        bind.viewModel = viewModel
+        bind.lifecycleOwner = this
     }
 }
