@@ -21,6 +21,7 @@
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_constraintDimensionRatio="4:3"
+            android:onClick="@{v -> viewModel.changeSlideStatus(false)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/v_side_left"
@@ -42,12 +43,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <View
+        <androidx.cardview.widget.CardView
             android:id="@+id/v_slide"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:background="@drawable/select_slide_view"
-            isSelect="@{viewModel.currentSlide.select}"
+            android:elevation="0dp"
+            slideColor="@{viewModel.slideHexColor}"
+            android:onClick="@{v -> viewModel.changeSlideStatus(true)}"
             app:layout_constraintTop_toTopOf="@id/v_center"
             app:layout_constraintBottom_toBottomOf="@id/v_center"
             app:layout_constraintStart_toStartOf="@id/v_center"
@@ -78,6 +80,9 @@
             app:layout_constraintStart_toStartOf="@id/v_side_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_background_text"
+            android:text="@{viewModel.slideHexColor}"
+            android:onClick="@{v -> viewModel.changeSlideColor()}"
+            slideColor="@{viewModel.slideHexColor}"
             tools:text="0xFFCC00"/>
 
         <TextView
@@ -95,11 +100,11 @@
 
         <TextView
             android:id="@+id/tv_color_alpha"
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/small_content_size"
-            android:text="@{String.valueOf(viewModel.currentSlide.color.alpha)}"
+            android:text="@{String.valueOf(viewModel.slideAlpha)}"
             android:gravity="center_vertical"
             android:background="@drawable/tv_round_white"
             android:paddingVertical="@dimen/space_margin"
@@ -141,6 +146,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="center"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 1}"
+            android:onClick="@{v -> viewModel.changeSlideAlpha(false)}"
             app:layout_constraintStart_toStartOf="@id/v_alpha_button_container"
             app:layout_constraintEnd_toStartOf="@id/v_alpha_button_divider"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
@@ -154,6 +161,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/title_size"
             android:gravity="center"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 10}"
+            android:onClick="@{v -> viewModel.changeSlideAlpha(true)}"
             app:layout_constraintStart_toEndOf="@id/v_alpha_button_divider"
             app:layout_constraintEnd_toEndOf="@id/v_alpha_button_container"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"

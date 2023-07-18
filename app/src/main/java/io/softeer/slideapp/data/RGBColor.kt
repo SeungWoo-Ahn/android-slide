@@ -26,6 +26,15 @@ data class RGBColor(
         alpha--
     }
 
+    fun getHexColorStr() : String {
+        val hexR = R.toString(16).padStart(2, '0')
+        val hexG = G.toString(16).padStart(2, '0')
+        val hexB = B.toString(16).padStart(2, '0')
+        val hexAlpha = (alpha * 255 / 10).toString(16).padStart(2, '0')
+        val hexColorStr = "$hexAlpha$hexR$hexG$hexB"
+        return hexColorStr.uppercase()
+    }
+
     override fun toString(): String {
         return "R: $R, G: $G, B: $B, Alpha: $alpha"
     }
