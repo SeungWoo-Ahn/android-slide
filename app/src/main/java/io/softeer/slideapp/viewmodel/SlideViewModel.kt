@@ -16,7 +16,7 @@ class SlideViewModel(
 ) : ViewModel() {
 
     private val _currentSlide = MutableStateFlow(manager.makeRectSlide())
-    val currentSlide : StateFlow<Slide> get() = _currentSlide
+    val currentSlide : StateFlow<Slide> = _currentSlide
 
     val slideHexColor = MutableStateFlow("")
     val slideAlpha = MutableStateFlow(10)
