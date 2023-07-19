@@ -54,11 +54,11 @@ Android 학습 프로젝트 #2
 1. RecyclerView와 슬라이드 생성 버튼 추가
 2. StateFlow가 담고 있던 객체 null 허용
    1) 첫 실행했을 때, StateFlow는 null을 담아 화면에 표시하지 않음
-4. SlideAdapter
+3. SlideAdapter
    1) 생성 버튼 클릭시, Slide가 추가되고 화면 갱신
    2) 슬라이드 아이템을 누를때, 해당 슬라이드 속성으로 화면 갱신
    3) 특정 슬라이드에서 속성을 변경하면, 목록에 해당 슬라이드 아이템 화면 갱신
-6. RecyclerView 드래그 구현
+4. RecyclerView 드래그 구현
    1) ItemHelperListener와 ItemHelperCallback으로 아이템 드래그 구현
    2) 드래그된 후 목록 index값 갱신
   
