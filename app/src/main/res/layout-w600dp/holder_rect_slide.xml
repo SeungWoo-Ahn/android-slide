@@ -10,7 +10,7 @@
             type="Integer" />
         <variable
             name="slide"
-            type="io.softeer.slideapp.model.Slide" />
+            type="io.softeer.slideapp.data.model.Slide" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
