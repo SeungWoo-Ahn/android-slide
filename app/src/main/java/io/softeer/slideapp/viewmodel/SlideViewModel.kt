@@ -1,7 +1,9 @@
 package io.softeer.slideapp.viewmodel
 
+import android.content.ClipData.Item
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 import io.softeer.slideapp.adapter.SlideAdapter
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.Slide
@@ -19,6 +21,7 @@ class SlideViewModel(
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
     val adapter = SlideAdapter(::onSlideClick)
+    val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
     private fun collectSlide(slide:  Slide) {
         slide.let {
