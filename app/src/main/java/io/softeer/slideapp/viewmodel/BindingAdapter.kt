@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 
 @BindingAdapter("slideColor")
 fun setSlideBackground(view: View, hexColor: String?) {
@@ -27,4 +29,10 @@ fun setRecyclerItemDecoration(view: RecyclerView, vertical: Int) {
             }
         }
     )
+}
+
+@BindingAdapter("itemHelper")
+fun setRecyclerItemHelper(view: RecyclerView, helperCallback: ItemTouchHelperCallback) {
+    val helper = ItemTouchHelper(helperCallback)
+    helper.attachToRecyclerView(view)
 }

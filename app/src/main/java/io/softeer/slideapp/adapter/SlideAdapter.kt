@@ -3,6 +3,7 @@ package io.softeer.slideapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.HolderSlideBinding
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class SlideAdapter(
     private val onItemClick: (Slide) -> Unit
-) : RecyclerView.Adapter<SlideAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SlideAdapter.ViewHolder>(), ItemTouchListener {
 
     private val slideList: MutableList<Slide> = mutableListOf()
     private val currentPosition = MutableStateFlow(0)
@@ -50,6 +51,17 @@ class SlideAdapter(
                 currentPosition.value = adapterPosition
             }
         }
+    }
+
+    override fun onItemMove(from_position: Int, to_position: Int): Boolean {
+        val targetSlide = slideList[from_position]
+        slideList.removeAt(from_position)
+        slideList.add(to_position, targetSlide)
+        notifyItemMoved(from_position, to_position)
+        notifyItemChanged(from_position)
+        notifyItemChanged(to_position)
+        currentPosition.value = to_position
+        return true
     }
 
 }

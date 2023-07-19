@@ -196,6 +196,7 @@
             app:layout_constraintEnd_toEndOf="@id/v_side_left"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tv_add_button"
+            itemHelper="@{viewModel.itemTouchHelperCallback}"
             itemDecoration="@{5}"
             android:adapter="@{viewModel.adapter}"/>
 
