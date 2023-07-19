@@ -11,16 +11,12 @@ class SlideViewModel(
     private val manager: SlideManager = SlideManager()
 ) : ViewModel() {
 
-    private val _currentSlide = MutableStateFlow(manager.createSlideInstance())
-    val currentSlide : StateFlow<Slide> = _currentSlide
-    val slideHexColor = MutableStateFlow("")
-    val slideAlpha = MutableStateFlow(10)
+    private val _currentSlide = MutableStateFlow<Slide?>(null)
+    val currentSlide : StateFlow<Slide?> = _currentSlide
+    val slideHexColor = MutableStateFlow<String?>(null)
+    val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
-    val adapter = SlideAdapter()
-
-    init {
-        _currentSlide.value = manager.createSlideInstance()
-    }
+    val adapter = SlideAdapter(::onSlideClick)
 
     private fun collectSlide(slide:  Slide) {
         slide.let {
@@ -32,25 +28,37 @@ class SlideViewModel(
     }
 
     fun changeSlideStatus(status: Boolean) {
-        collectSlide(manager.changeSlideStatus(currentSlide.value, status))
-    }
-
-    fun changeSlideColor() {
-        collectSlide(manager.changeSlideColor(currentSlide.value))
-    }
-
-    fun changeSlideAlpha(plus : Boolean) {
-        currentSlide.value.let {
-            if (plus) {
-                _currentSlide.value = manager.increaseSlideAlpha(it)
-            } else {
-                _currentSlide.value = manager.decreaseSlideAlpha(it)
-            }
+        currentSlide.value?.let {
+            collectSlide(manager.changeSlideStatus(it, status))
         }
     }
 
-    fun onAddSlide() {
-        adapter.addSlide(manager.createSlideInstance())
+    fun changeSlideColor() {
+        currentSlide.value?.let {
+            collectSlide(manager.changeSlideColor(it))
+            adapter.notifyCurrentItemChanged()
+        }
     }
 
+    fun changeSlideAlpha(plus : Boolean) {
+        currentSlide.value?.let {
+            if (plus) {
+                collectSlide(manager.increaseSlideAlpha(it))
+            }
+            if (!plus) {
+                collectSlide(manager.decreaseSlideAlpha(it))
+            }
+            adapter.notifyCurrentItemChanged()
+        }
+    }
+
+    private fun onSlideClick(slide: Slide) {
+        collectSlide(slide)
+    }
+
+    fun onAddSlide() {
+        adapter.addSlide(manager.createSlideInstance()) {
+            collectSlide(it)
+        }
+    }
 }
