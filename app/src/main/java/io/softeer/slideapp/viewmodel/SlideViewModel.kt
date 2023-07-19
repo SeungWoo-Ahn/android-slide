@@ -1,15 +1,12 @@
 package io.softeer.slideapp.viewmodel
 
-import android.content.ClipData.Item
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 import io.softeer.slideapp.adapter.SlideAdapter
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.Slide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class SlideViewModel(
     private val manager: SlideManager = SlideManager()

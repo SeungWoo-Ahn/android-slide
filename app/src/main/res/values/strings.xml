@@ -9,6 +9,11 @@
     <string name="str_empty"> </string>
     <string name="str_add">( + )</string>
 
+    <string name="str_menu_send_to_back">맨 뒤로 보내기</string>
+    <string name="str_menu_send_back">뒤로 보내기</string>
+    <string name="str_menu_send_front">앞으로 보내기</string>
+    <string name="str_menu_send_to_front">맨 앞으로 보내기</string>
+
     <string name="str_square_img_description">For Square Slide</string>
     <string name="str_image_img_description">For Image Slide</string>
 </resources>

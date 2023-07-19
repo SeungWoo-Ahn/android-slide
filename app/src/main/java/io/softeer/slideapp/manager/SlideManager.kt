@@ -1,6 +1,5 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.factory.TypeSlideFactory
 import io.softeer.slideapp.model.Slide
 
