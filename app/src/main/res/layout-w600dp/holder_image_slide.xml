@@ -8,7 +8,6 @@
         <variable
             name="slideIndex"
             type="Integer" />
-
         <variable
             name="imageSlide"
             type="io.softeer.slideapp.model.ImageSlide" />
