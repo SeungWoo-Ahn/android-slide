@@ -40,3 +40,11 @@ Android 학습 프로젝트 #2
 #### 실행화면
 <img width="569" alt="스크린샷 2023-07-18 오후 5 39 47" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/3be7846f-55ea-4be9-b2c3-a661d5295d3e">
 
+
+### Unidirectional Data Flow
+
+1. StateFlow -> LiveData로 변경
+   1) Slide 객체를 홀드하고 있던 StateFlow를 LiveData로 변경해보았다
+   2) StateFlow는 변경되는 상태값을 모두 분리하여 MutableStateFlow로 홀드하였다
+   3) LiveData는 홀드하고 있던 객체의 속성이 변경되면 감지되어 상태값을 분리하지 않고 사용해보았다
+  
