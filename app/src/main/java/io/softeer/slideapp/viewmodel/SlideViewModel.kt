@@ -1,6 +1,7 @@
 package io.softeer.slideapp.viewmodel
 
 import androidx.lifecycle.ViewModel
+import io.softeer.slideapp.adapter.SlideAdapter
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.Slide
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ class SlideViewModel(
     val slideHexColor = MutableStateFlow("")
     val slideAlpha = MutableStateFlow(10)
     val slideSelect = MutableStateFlow(false)
+    val adapter = SlideAdapter()
 
     init {
         _currentSlide.value = manager.createSlideInstance()
@@ -38,7 +40,7 @@ class SlideViewModel(
     }
 
     fun changeSlideAlpha(plus : Boolean) {
-        currentSlide.value?.let {
+        currentSlide.value.let {
             if (plus) {
                 _currentSlide.value = manager.increaseSlideAlpha(it)
             } else {
@@ -46,4 +48,9 @@ class SlideViewModel(
             }
         }
     }
+
+    fun onAddSlide() {
+        adapter.addSlide(manager.createSlideInstance())
+    }
+
 }
