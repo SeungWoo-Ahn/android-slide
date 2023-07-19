@@ -3,32 +3,49 @@ package io.softeer.slideapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
-import io.softeer.slideapp.databinding.HolderSlideBinding
+import io.softeer.slideapp.databinding.HolderImageSlideBinding
+import io.softeer.slideapp.databinding.HolderRectSlideBinding
+import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.model.Slide
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SlideAdapter(
     private val onItemClick: (Slide) -> Unit
-) : RecyclerView.Adapter<SlideAdapter.ViewHolder>(), ItemTouchListener {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchListener {
 
     private val slideList: MutableList<Slide> = mutableListOf()
     private val currentPosition = MutableStateFlow(0)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_slide, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == SlideType.Rect.viewType){
+            return RectViewHolder(
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_rect_slide, parent, false)
+            )
+        }
+        return ImageViewHolder(
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_image_slide, parent, false)
         )
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return slideList[position].type.viewType
     }
 
     override fun getItemCount(): Int {
         return slideList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(slideList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(slideList[position].type.viewType) {
+            SlideType.Rect.viewType -> {
+                (holder as RectViewHolder).bind(slideList[position])
+            }
+            SlideType.Image.viewType -> {
+                (holder as ImageViewHolder).bind(slideList[position])
+            }
+        }
     }
 
     fun addSlide(slide: Slide, callback: (Slide) -> Unit) {
@@ -42,10 +59,20 @@ class SlideAdapter(
         notifyItemChanged(currentPosition.value)
     }
 
-    inner class ViewHolder(private val bind: HolderSlideBinding): RecyclerView.ViewHolder(bind.root) {
+    inner class RectViewHolder(private val bind: HolderRectSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
             bind.slideIndex = adapterPosition + 1
             bind.slide = slide
+            bind.root.setOnClickListener {
+                onItemClick(slide)
+                currentPosition.value = adapterPosition
+            }
+        }
+    }
+
+    inner class ImageViewHolder(private val bind: HolderImageSlideBinding): RecyclerView.ViewHolder(bind.root) {
+        fun bind(slide: Slide) {
+            bind.slideIndex = adapterPosition + 1
             bind.root.setOnClickListener {
                 onItemClick(slide)
                 currentPosition.value = adapterPosition
@@ -63,5 +90,4 @@ class SlideAdapter(
         currentPosition.value = to_position
         return true
     }
-
 }
