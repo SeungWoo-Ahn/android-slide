@@ -55,12 +55,17 @@ class SlideAdapter(
 
     override fun onItemMove(from_position: Int, to_position: Int): Boolean {
         val targetSlide = slideList[from_position]
+        if (currentPosition.value == from_position) {
+            currentPosition.value = to_position
+        }
+        if (currentPosition.value == to_position) {
+            currentPosition.value = from_position
+        }
         slideList.removeAt(from_position)
         slideList.add(to_position, targetSlide)
         notifyItemMoved(from_position, to_position)
         notifyItemChanged(from_position)
         notifyItemChanged(to_position)
-        currentPosition.value = to_position
         return true
     }
 
