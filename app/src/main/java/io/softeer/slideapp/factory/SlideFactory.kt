@@ -67,5 +67,11 @@ abstract class SlideFactory {
         )
     }
 
-    abstract fun createSlide(type: SlideType): Slide
+    fun createSlideType(): SlideType {
+        val random = Random()
+        val slideTypeList = SlideType.values()
+        return slideTypeList[random.nextInt(slideTypeList.size)]
+    }
+
+    abstract fun createSlide(): Slide
 }
