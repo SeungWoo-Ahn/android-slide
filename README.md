@@ -48,3 +48,19 @@ Android 학습 프로젝트 #2
    2) StateFlow는 변경되는 상태값을 모두 분리하여 MutableStateFlow로 홀드하였다
    3) LiveData는 홀드하고 있던 객체의 속성이 변경되면 감지되어 상태값을 분리하지 않고 사용해보았다
   
+
+### 슬라이드 목록 표시
+
+1. RecyclerView와 슬라이드 생성 버튼 추가
+2. StateFlow가 담고 있던 객체 null 허용
+   1) 첫 실행했을 때, StateFlow는 null을 담아 화면에 표시하지 않음
+4. SlideAdapter
+   1) 생성 버튼 클릭시, Slide가 추가되고 화면 갱신
+   2) 슬라이드 아이템을 누를때, 해당 슬라이드 속성으로 화면 갱신
+   3) 특정 슬라이드에서 속성을 변경하면, 목록에 해당 슬라이드 아이템 화면 갱신
+6. RecyclerView 드래그 구현
+   1) ItemHelperListener와 ItemHelperCallback으로 아이템 드래그 구현
+   2) 드래그된 후 목록 index값 갱신
+  
+#### 실행화면
+<img width="570" alt="스크린샷 2023-07-19 오후 2 38 52" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/4f080be3-433a-4ee0-b6b7-1925b02d6c81">
