@@ -11,4 +11,7 @@
     <color name="gray100">#E6E6EA</color>
     <color name="gray200">#D8D8DD</color>
     <color name="gray300">#B0AFB4</color>
+    <color name="gray400">#5E5E5E</color>
+    <color name="blue">#047BFF</color>
+    <color name="skyBlue">#C6DCF8</color>
 </resources>
