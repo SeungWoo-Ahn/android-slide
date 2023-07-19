@@ -8,8 +8,8 @@ class SlideManager {
 
     private val factory = TypeSlideFactory()
 
-    fun makeRectSlide(): Slide {
-        return factory.createSlide(SlideType.Rect)
+    fun makeSlide(): Slide {
+        return factory.createSlide()
     }
 
     fun changeSlideStatus(currentSlide: Slide, status: Boolean): Slide {

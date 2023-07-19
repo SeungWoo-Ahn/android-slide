@@ -4,17 +4,12 @@ import io.softeer.slideapp.data.RGBColor
 import io.softeer.slideapp.data.Size
 import io.softeer.slideapp.enum.SlideType
 
-class RectSlide(
+class ImageSlide(
     override val id: String,
-    private var side: Int,
+    override var size: Size,
     override var color: RGBColor,
 ) : Slide {
 
-    override var size = Size(side, side)
-    override var type = SlideType.Rect
+    override var type = SlideType.Image
     override var isSelect = false
-
-    override fun toString(): String {
-        return "($id), Side: $side, $color"
-    }
 }

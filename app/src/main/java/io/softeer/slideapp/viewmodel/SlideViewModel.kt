@@ -62,7 +62,7 @@ class SlideViewModel(
     }
 
     fun onAddSlide() {
-        adapter.addSlide(manager.makeRectSlide()) {
+        adapter.addSlide(manager.makeSlide()) {
             collectSlide(it)
         }
     }
