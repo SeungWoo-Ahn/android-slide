@@ -3,7 +3,6 @@ package io.softeer.slideapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.HolderSlideBinding
