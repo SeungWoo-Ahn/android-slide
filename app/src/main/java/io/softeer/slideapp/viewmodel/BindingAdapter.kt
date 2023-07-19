@@ -7,8 +7,10 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 @BindingAdapter("slideColor")
-fun setSlideBackground(view: View, hexColor: String) {
-    view.setBackgroundColor(Color.parseColor("#$hexColor"))
+fun setSlideBackground(view: View, hexColor: String?) {
+    hexColor?.let {
+        view.setBackgroundColor(Color.parseColor("#$it"))
+    }
 }
 
 @BindingAdapter("itemDecoration")

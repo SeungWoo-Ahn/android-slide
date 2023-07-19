@@ -13,20 +13,16 @@ class SlideViewModel(
     private val manager: SlideManager = SlideManager()
 ) : ViewModel() {
 
-    private val _currentSlide = MutableStateFlow(manager.makeRectSlide())
-    val currentSlide : StateFlow<Slide> = _currentSlide
-    val slideHexColor = MutableStateFlow("")
-    val slideAlpha = MutableStateFlow(10)
+    private val _currentSlide = MutableStateFlow<Slide?>(null)
+    val currentSlide : StateFlow<Slide?> = _currentSlide
+    val slideHexColor = MutableStateFlow<String?>(null)
+    val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
-    val adapter = SlideAdapter()
-
-    init {
-        collectSlide(currentSlide.value)
-    }
+    val adapter = SlideAdapter(::onSlideClick)
 
     private fun collectSlide(slide:  Slide) {
-        invokeStateFlow(_currentSlide) {
-            _currentSlide.value = slide
+        slide.let {
+            _currentSlide.value = it
             slideHexColor.value = it.color.getHexColorStr()
             slideAlpha.value = it.color.alpha
             slideSelect.value = it.isSelect
@@ -34,32 +30,37 @@ class SlideViewModel(
     }
 
     fun changeSlideStatus(status: Boolean) {
-        collectSlide(manager.changeSlideStatus(currentSlide.value, status))
+        currentSlide.value?.let {
+            collectSlide(manager.changeSlideStatus(it, status))
+        }
     }
 
     fun changeSlideColor() {
-        collectSlide(manager.changeSlideColor(currentSlide.value))
+        currentSlide.value?.let {
+            collectSlide(manager.changeSlideColor(it))
+            adapter.notifyCurrentItemChanged()
+        }
     }
 
     fun changeSlideAlpha(plus : Boolean) {
-        if (plus) {
-            collectSlide(manager.increaseSlideAlpha(currentSlide.value))
+        currentSlide.value?.let {
+            if (plus) {
+                collectSlide(manager.increaseSlideAlpha(it))
+            }
+            if (!plus) {
+                collectSlide(manager.decreaseSlideAlpha(it))
+            }
+            adapter.notifyCurrentItemChanged()
         }
-        if (!plus) {
-            collectSlide(manager.decreaseSlideAlpha(currentSlide.value))
-        }
+    }
+
+    private fun onSlideClick(slide: Slide) {
+        collectSlide(slide)
     }
 
     fun onAddSlide() {
-        adapter.addSlide(manager.makeRectSlide())
-    }
-
-    private fun <T> invokeStateFlow(state: StateFlow<T>, collect: (T)->Unit)
-    {
-        viewModelScope.launch {
-            state.collect{
-                collect(it)
-            }
+        adapter.addSlide(manager.makeRectSlide()) {
+            collectSlide(it)
         }
     }
 }
