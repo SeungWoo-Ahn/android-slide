@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.HolderSlideBinding
 import io.softeer.slideapp.model.Slide
+import kotlinx.coroutines.flow.MutableStateFlow
 
-class SlideAdapter : RecyclerView.Adapter<SlideAdapter.ViewHolder>() {
+class SlideAdapter(
+    private val onItemClick: (Slide) -> Unit
+) : RecyclerView.Adapter<SlideAdapter.ViewHolder>() {
 
     private val slideList: MutableList<Slide> = mutableListOf()
+    private val currentPosition = MutableStateFlow(0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,14 +30,25 @@ class SlideAdapter : RecyclerView.Adapter<SlideAdapter.ViewHolder>() {
         holder.bind(slideList[position])
     }
 
-    fun addSlide(slide: Slide) {
+    fun addSlide(slide: Slide, callback: (Slide) -> Unit) {
         slideList.add(slide)
+        callback(slide)
+        currentPosition.value = currentPosition.value + 1
         notifyItemInserted(itemCount)
+    }
+
+    fun notifyCurrentItemChanged() {
+        notifyItemChanged(currentPosition.value)
     }
 
     inner class ViewHolder(private val bind: HolderSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
             bind.slideIndex = adapterPosition + 1
+            bind.slide = slide
+            bind.root.setOnClickListener {
+                onItemClick(slide)
+                currentPosition.value = adapterPosition
+            }
         }
     }
 

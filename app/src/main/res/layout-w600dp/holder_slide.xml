@@ -8,6 +8,9 @@
         <variable
             name="slideIndex"
             type="Integer" />
+        <variable
+            name="slide"
+            type="io.softeer.slideapp.model.Slide" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,23 +21,24 @@
             android:id="@+id/tv_holder_number"
             android:layout_width="40dp"
             android:layout_height="0dp"
-            android:text="@{String.valueOf(slideIndex)}"
+            android:background="@color/white"
             tools:text="1"
             android:gravity="bottom|end"
             android:textSize="@dimen/big_content_size"
             android:padding="@dimen/space_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{String.valueOf(slideIndex)}"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/gray200"
             app:layout_constraintStart_toEndOf="@id/tv_holder_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            slideColor="@{slide.color.hexColorStr}"/>
 
         <ImageView
             android:layout_width="0dp"
