@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="io.softeer.slideapp.viewmodel.SlideViewModel" />
+        <import type="io.softeer.slideapp.enums.SlideType"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +44,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image"
+            android:background="@drawable/iv_image_item"
+            android:padding="10dp"
+            android:contentDescription="@string/str_slide_image_description"
+            app:layout_constraintStart_toEndOf="@id/v_side_left"
+            app:layout_constraintEnd_toStartOf="@id/v_side_right"
+            app:layout_constraintTop_toTopOf="@id/v_center"
+            isSelect="@{viewModel.slideSelect}"
+            android:visibility="@{viewModel.slideType == SlideType.Image ? 0 : 8}"
+            android:onClick="@{v -> viewModel.changeSlideStatus(true)}"/>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/v_slide"
             android:layout_width="250dp"
@@ -54,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="@id/v_center"
             app:layout_constraintStart_toStartOf="@id/v_center"
             app:layout_constraintEnd_toEndOf="@id/v_center"
-            android:visibility="@{viewModel.currentSlide == null ? 4 : 0}"
+            android:visibility="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Rect ? 0 : 8}"
             app:strokeWidth="@{viewModel.slideSelect ? 2 : 0}"
             slideColor="@{viewModel.slideHexColor}"
             android:onClick="@{v -> viewModel.changeSlideStatus(true)}"/>
@@ -84,8 +99,8 @@
             app:layout_constraintStart_toStartOf="@id/v_side_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_background_text"
-            android:enabled="@{viewModel.slideSelect}"
-            android:text="@{viewModel.slideSelect ? viewModel.slideHexColor : @string/str_empty}"
+            android:enabled="@{viewModel.slideSelect &amp;&amp; viewModel.slideType != SlideType.Image}"
+            android:text="@{viewModel.slideSelect &amp;&amp; viewModel.slideType != SlideType.Image ? viewModel.slideHexColor : @string/str_empty}"
             android:onClick="@{v -> viewModel.changeSlideColor()}"
             slideColor="@{viewModel.slideHexColor}"
             tools:text="0xFFCC00"/>
@@ -155,7 +170,7 @@
             app:layout_constraintEnd_toStartOf="@id/v_alpha_button_divider"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 1 &amp; viewModel.slideSelect}"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 1}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(false)}"/>
 
         <TextView
@@ -170,7 +185,7 @@
             app:layout_constraintEnd_toEndOf="@id/v_alpha_button_container"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 10 &amp; viewModel.slideSelect}"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 10}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(true)}"/>
 
         <TextView

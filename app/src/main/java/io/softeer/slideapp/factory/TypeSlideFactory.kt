@@ -1,7 +1,8 @@
 package io.softeer.slideapp.factory
 
+import io.softeer.slideapp.data.RGBColor
 import io.softeer.slideapp.data.Size
-import io.softeer.slideapp.enum.SlideType.*
+import io.softeer.slideapp.enums.SlideType.*
 import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.RectSlide
 import io.softeer.slideapp.model.Slide
@@ -17,7 +18,8 @@ class TypeSlideFactory : SlideFactory() {
 
             Image -> {
                 val size = Size(createSlideSide(),createSlideSide())
-                ImageSlide(createSlideUuid(), size, createSlideColor())
+                val color = RGBColor(255,255,255,10)
+                ImageSlide(createSlideUuid(), size, color)
             }
         }
     }
