@@ -15,7 +15,7 @@ class SlideChangeAlphaTest{
 
     @Before
     fun setUp() {
-        factory.createSlide()
+        factory.createRandomSlide()
     }
 
     @Test

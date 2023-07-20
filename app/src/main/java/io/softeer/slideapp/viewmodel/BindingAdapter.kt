@@ -29,6 +29,11 @@ fun setSelectStatus(view: View, status: Boolean) {
     view.isSelected = status
 }
 
+@BindingAdapter("isSelect")
+fun setSelectStatus(view: View, status: Boolean) {
+    view.isSelected = status
+}
+
 @BindingAdapter("slideColor")
 fun setSlideBackground(view: View, hexColor: String?) {
     hexColor?.let {
