@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.databinding.HolderImageSlideBinding
 import io.softeer.slideapp.databinding.HolderRectSlideBinding
-import io.softeer.slideapp.enum.SlideType
+import io.softeer.slideapp.enums.SlideType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
@@ -23,7 +24,7 @@ class SlideAdapter(
     private val currentPosition = MutableStateFlow(0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == SlideType.Rect.viewType){
+        if (viewType == SlideType.Rect.viewType) {
             return RectViewHolder(
                 DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_rect_slide, parent, false)
             )
@@ -65,28 +66,30 @@ class SlideAdapter(
 
     inner class RectViewHolder(private val bind: HolderRectSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
-            bind.slideIndex = adapterPosition + 1
-            bind.slide = slide
-            bind.root.setOnClickListener {
-                onItemClick(slide)
-                currentPosition.value = adapterPosition
-            }
-            bind.root.setOnLongClickListener {
-                setLongClickPopup(bind.root.context, it, adapterPosition)
-            }
+            setHolderBind(bind, slide, adapterPosition)
         }
     }
 
     inner class ImageViewHolder(private val bind: HolderImageSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
-            bind.slideIndex = adapterPosition + 1
-            bind.root.setOnClickListener {
-                onItemClick(slide)
-                currentPosition.value = adapterPosition
-            }
-            bind.root.setOnLongClickListener {
-                setLongClickPopup(bind.root.context, it, adapterPosition)
-            }
+            setHolderBind(bind, slide, adapterPosition)
+        }
+    }
+
+    private fun setHolderBind(bind: ViewDataBinding, slide: Slide, position: Int) {
+        bind.root.setOnClickListener {
+            onItemClick(slide)
+            currentPosition.value = position
+        }
+        bind.root.setOnLongClickListener {
+            setLongClickPopup(bind.root.context, it, position)
+        }
+        if (bind is HolderRectSlideBinding) {
+            bind.slideIndex = position + 1
+            bind.slide = slide
+        }
+        if (bind is HolderImageSlideBinding) {
+            bind.slideIndex = position + 1
         }
     }
 

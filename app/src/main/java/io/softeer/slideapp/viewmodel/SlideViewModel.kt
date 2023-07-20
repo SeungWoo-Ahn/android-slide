@@ -3,6 +3,7 @@ package io.softeer.slideapp.viewmodel
 import androidx.lifecycle.ViewModel
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 import io.softeer.slideapp.adapter.SlideAdapter
+import io.softeer.slideapp.enums.SlideType
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.Slide
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ class SlideViewModel(
 
     private val _currentSlide = MutableStateFlow<Slide?>(null)
     val currentSlide : StateFlow<Slide?> = _currentSlide
+    val slideType = MutableStateFlow<SlideType?>(null)
     val slideHexColor = MutableStateFlow<String?>(null)
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
@@ -23,6 +25,7 @@ class SlideViewModel(
     private fun collectSlide(slide:  Slide) {
         slide.let {
             _currentSlide.value = it
+            slideType.value = it.type
             slideHexColor.value = it.color.getHexColorStr()
             slideAlpha.value = it.color.alpha
             slideSelect.value = it.isSelect

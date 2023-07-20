@@ -16,8 +16,5 @@
 
     <string name="str_square_img_description">For Square Slide</string>
     <string name="str_image_img_description">For Image Slide</string>
-<<<<<<< HEAD
     <string name="str_slide_image_description">For Slide Image Item</string>
-=======
->>>>>>> b8b25f3 (Feat : RecyclerView 뷰타입 나누기)
 </resources>
