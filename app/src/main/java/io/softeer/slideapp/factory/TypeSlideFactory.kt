@@ -19,7 +19,7 @@ class TypeSlideFactory : SlideFactory() {
             Image -> {
                 val size = Size(createSlideSide(),createSlideSide())
                 val color = RGBColor(255,255,255,10)
-                ImageSlide(createSlideUuid(), size, color)
+                ImageSlide(createSlideUuid(), size, color, null)
             }
         }
     }
