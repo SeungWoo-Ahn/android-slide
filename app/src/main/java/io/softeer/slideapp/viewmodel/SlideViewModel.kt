@@ -1,11 +1,15 @@
 package io.softeer.slideapp.viewmodel
 
+import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 import io.softeer.slideapp.adapter.SlideAdapter
 import io.softeer.slideapp.enums.SlideType
 import io.softeer.slideapp.manager.SlideManager
+import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.util.DoubleClickListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -19,8 +23,19 @@ class SlideViewModel(
     val slideHexColor = MutableStateFlow<String?>(null)
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
+    val slideImgSource = MutableStateFlow<String?>(null)
     val adapter = SlideAdapter(::onSlideClick)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
+    val imageClickListener = object : DoubleClickListener() {
+        override fun onOneClick(v: View?) {
+            changeSlideStatus(true)
+        }
+
+        override fun onDoubleClick(v: View?) {
+            pickImage()
+        }
+
+    }
 
     private fun collectSlide(slide:  Slide) {
         slide.let {
@@ -29,6 +44,9 @@ class SlideViewModel(
             slideHexColor.value = it.color.getHexColorStr()
             slideAlpha.value = it.color.alpha
             slideSelect.value = it.isSelect
+            if (it is ImageSlide) {
+                slideImgSource.value = it.imgSrc
+            }
         }
     }
 
@@ -54,6 +72,10 @@ class SlideViewModel(
             }
             adapter.notifyCurrentItemChanged()
         }
+    }
+
+    private fun pickImage() {
+        Log.i(javaClass.name, "더블 클릭")
     }
 
     private fun onSlideClick(slide: Slide) {

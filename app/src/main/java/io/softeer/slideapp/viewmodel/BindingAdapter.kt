@@ -3,10 +3,14 @@ package io.softeer.slideapp.viewmodel
 import android.graphics.Color
 import android.graphics.Rect
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import io.softeer.slideapp.R
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
+import io.softeer.slideapp.util.DoubleClickListener
 
 @BindingAdapter("isSelect")
 fun setSelectStatus(view: View, status: Boolean) {
@@ -40,4 +44,22 @@ fun setRecyclerItemDecoration(view: RecyclerView, vertical: Int) {
 fun setRecyclerItemHelper(view: RecyclerView, helperCallback: ItemTouchHelperCallback) {
     val helper = ItemTouchHelper(helperCallback)
     helper.attachToRecyclerView(view)
+}
+
+@BindingAdapter("onDoubleClick")
+fun setDoubleClickListener(view: View, doubleClickListener: DoubleClickListener) {
+    view.setOnClickListener(doubleClickListener)
+}
+
+@BindingAdapter("slideImg")
+fun setSlideImage(view: ImageView, source: String?) {
+    if (source.isNullOrEmpty()) {
+        view.setImageDrawable(
+            AppCompatResources.getDrawable(
+                view.context,
+                R.drawable.ic_image
+            )
+        )
+        return
+    }
 }

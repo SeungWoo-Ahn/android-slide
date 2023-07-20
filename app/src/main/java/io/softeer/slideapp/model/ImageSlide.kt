@@ -8,6 +8,7 @@ data class ImageSlide(
     override val id: String,
     override var size: Size,
     override var color: RGBColor,
+    var imgSrc: String?
 ) : Slide {
     override var type = SlideType.Image
     override var isSelect = false
