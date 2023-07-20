@@ -3,12 +3,8 @@ package io.softeer.slideapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.Slide
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class SlideViewModel(
     private val manager: SlideManager = SlideManager()
@@ -25,7 +21,7 @@ class SlideViewModel(
 
     init {
         /*collectSlide(currentSlide.value)*/
-        _currentSlide.value = manager.makeRectSlide()
+        _currentSlide.value = manager.createSlideInstance()
     }
 
 /*    private fun collectSlide(slide:  Slide) {
@@ -56,14 +52,14 @@ class SlideViewModel(
             if (plus) {
                 _currentSlide.value = manager.increaseSlideAlpha(it)
             }
-            if (!plus) {
+            else {
                 _currentSlide.value = manager.decreaseSlideAlpha(it)
             }
         }
 /*        if (plus) {
             collectSlide(manager.increaseSlideAlpha(currentSlide.value))
         }
-        if (!plus) {
+        else {
             collectSlide(manager.decreaseSlideAlpha(currentSlide.value))
         }*/
     }

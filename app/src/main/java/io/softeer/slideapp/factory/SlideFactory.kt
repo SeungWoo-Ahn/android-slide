@@ -8,6 +8,8 @@ import java.util.UUID
 
 abstract class SlideFactory {
 
+    private val random = Random()
+
     fun createSlideUuid(): String {
         val uniqueId = UUID.randomUUID().toString().replace("-", "")
         val formattedId = mutableListOf<String>()
@@ -18,12 +20,51 @@ abstract class SlideFactory {
     }
 
     fun createSlideSide(): Int {
-        return Random().nextInt(500) + 1
+        return random.nextInt(500) + 1
     }
 
     fun createSlideColor(): RGBColor {
-        val random = Random()
-        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(10) + 1)
+        return RGBColor(
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(10) + 1
+        )
+    }
+
+    fun changeOnlySlideColor(slide: Slide): RGBColor {
+        return RGBColor(
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(256),
+            slide.color.alpha
+        )
+    }
+
+    fun increaseSlideColorAlpha(slide: Slide): RGBColor {
+        var currentAlpha = slide.color.alpha
+        if (currentAlpha != 10) {
+            currentAlpha++
+        }
+        return RGBColor(
+            slide.color.r,
+            slide.color.g,
+            slide.color.b,
+            currentAlpha
+        )
+    }
+
+    fun decreaseSlideColorAlpha(slide: Slide): RGBColor {
+        var currentAlpha = slide.color.alpha
+        if (currentAlpha != 1) {
+            currentAlpha--
+        }
+        return RGBColor(
+            slide.color.r,
+            slide.color.g,
+            slide.color.b,
+            currentAlpha
+        )
     }
 
     abstract fun createSlide(type: SlideType): Slide
