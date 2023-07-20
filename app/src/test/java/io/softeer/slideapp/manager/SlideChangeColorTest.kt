@@ -1,6 +1,6 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.enum.SlideType
+import io.softeer.slideapp.enums.SlideType
 import io.softeer.slideapp.factory.TypeSlideFactory
 import org.junit.Assert.*
 import org.junit.Test

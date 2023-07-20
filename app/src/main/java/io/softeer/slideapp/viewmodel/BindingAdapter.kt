@@ -8,6 +8,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 
+@BindingAdapter("isSelect")
+fun setSelectStatus(view: View, status: Boolean) {
+    view.isSelected = status
+}
+
 @BindingAdapter("slideColor")
 fun setSlideBackground(view: View, hexColor: String?) {
     hexColor?.let {
