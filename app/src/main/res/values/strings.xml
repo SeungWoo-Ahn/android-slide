@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SlideApp</string>
+    
+    <string name="str_background_color">배경색</string>
+    <string name="str_color_alpha">투명도</string>
+    <string name="str_plus">+</string>
+    <string name="str_minus">-</string>
+    <string name="str_divider">|</string>
+    <string name="str_empty"> </string>
 </resources>
