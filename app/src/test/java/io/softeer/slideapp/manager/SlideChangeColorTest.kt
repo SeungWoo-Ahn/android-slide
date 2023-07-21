@@ -12,13 +12,13 @@ class SlideChangeColorTest{
 
     @Test
     fun changeSlideColor_toRandomColor_notEquals() {
-        val beforeR = currentSlide.color.R
-        val beforeG = currentSlide.color.G
-        val beforeB = currentSlide.color.B
+        val beforeR = currentSlide.color.r
+        val beforeG = currentSlide.color.g
+        val beforeB = currentSlide.color.b
         manager.changeSlideColor(currentSlide)
-        val afterR = currentSlide.color.R
-        val afterG = currentSlide.color.G
-        val afterB = currentSlide.color.B
+        val afterR = currentSlide.color.r
+        val afterG = currentSlide.color.g
+        val afterB = currentSlide.color.b
         assertFalse(beforeR==afterR && beforeG==afterG && beforeB==afterB)
     }
 }

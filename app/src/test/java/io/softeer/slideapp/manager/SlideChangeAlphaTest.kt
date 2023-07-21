@@ -1,5 +1,6 @@
 package io.softeer.slideapp.manager
 
+import io.softeer.slideapp.data.RGBColor
 import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.factory.TypeSlideFactory
 import io.softeer.slideapp.model.Slide
@@ -11,15 +12,16 @@ class SlideChangeAlphaTest{
 
     private val manager = SlideManager()
     private lateinit var currentSlide : Slide
+    private val factory = TypeSlideFactory()
 
     @Before
     fun setUp() {
-        currentSlide = TypeSlideFactory().createSlide(io.softeer.slideapp.enum.SlideType.Rect)
+        factory.createSlide(SlideType.Rect)
     }
 
     @Test
     fun changeSlideAlpha_increaseAlpha_increaseOne() {
-        currentSlide.color.alpha = 7
+        currentSlide.color = RGBColor(0, 0, 0, 7)
         val expected = 8
         manager.increaseSlideAlpha(currentSlide)
         val actual = currentSlide.color.alpha
@@ -29,7 +31,7 @@ class SlideChangeAlphaTest{
 
     @Test
     fun changeSlideAlpha_increaseAlpha_increaseNone() {
-        currentSlide.color.alpha = 10
+        currentSlide.color = RGBColor(0, 0, 0, 10)
         val expected = 10
         manager.increaseSlideAlpha(currentSlide)
         val actual = currentSlide.color.alpha
@@ -38,7 +40,7 @@ class SlideChangeAlphaTest{
 
     @Test
     fun changeSlideAlpha_decreaseAlpha_decreaseOne() {
-        currentSlide.color.alpha = 10
+        currentSlide.color = RGBColor(0, 0, 0, 10)
         val expected = 9
         manager.decreaseSlideAlpha(currentSlide)
         val actual = currentSlide.color.alpha
@@ -47,7 +49,7 @@ class SlideChangeAlphaTest{
 
     @Test
     fun changeSlideAlpha_decreaseAlpha_decreaseNone() {
-        currentSlide.color.alpha = 1
+        currentSlide.color = RGBColor(0, 0, 0, 1)
         val expected = 1
         manager.decreaseSlideAlpha(currentSlide)
         val actual = currentSlide.color.alpha

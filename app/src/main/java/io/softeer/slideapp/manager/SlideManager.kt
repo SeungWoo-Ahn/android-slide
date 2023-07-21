@@ -8,7 +8,7 @@ class SlideManager {
 
     private val factory = TypeSlideFactory()
 
-    fun makeRectSlide(): Slide {
+    fun createSlideInstance(): Slide {
         return factory.createSlide(SlideType.Rect)
     }
 
@@ -18,18 +18,24 @@ class SlideManager {
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        currentSlide.color.changeRandomColor()
-        return currentSlide
+        currentSlide.let {
+            it.color = factory.changeOnlySlideColor(it)
+            return it
+        }
     }
 
-    fun increaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.color.increaseAlpha()
-        return currentSlide
+    fun increaseSlideAlpha(currentSlide: Slide): Slide {
+        currentSlide.let {
+            it.color = factory.increaseSlideColorAlpha(it)
+            return it
+        }
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.color.decreaseAlpha()
-        return currentSlide
+        currentSlide.let {
+            it.color = factory.decreaseSlideColorAlpha(it)
+            return it
+        }
     }
 
 }
