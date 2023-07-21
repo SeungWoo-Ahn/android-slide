@@ -8,12 +8,9 @@
         <variable
             name="slideIndex"
             type="Integer" />
-<<<<<<< HEAD
         <variable
             name="imageSlide"
             type="io.softeer.slideapp.data.model.ImageSlide" />
-=======
->>>>>>> b8b25f3 (Feat : RecyclerView 뷰타입 나누기)
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,13 +48,9 @@
             app:layout_constraintStart_toEndOf="@id/tv_holder_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-<<<<<<< HEAD
             app:layout_constraintBottom_toBottomOf="parent"
             slideImg="@{imageSlide.imageSource}"
             imgAlpha="@{imageSlide.alpha}"/>
-=======
-            app:layout_constraintBottom_toBottomOf="parent"/>
->>>>>>> b8b25f3 (Feat : RecyclerView 뷰타입 나누기)
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
+import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.databinding.HolderImageSlideBinding
 import io.softeer.slideapp.databinding.HolderRectSlideBinding
@@ -90,6 +91,7 @@ class SlideAdapter(
         }
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1
+            bind.imageSlide = slide as ImageSlide
         }
     }
 
