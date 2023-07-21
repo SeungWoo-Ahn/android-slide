@@ -91,8 +91,7 @@ class SlideAdapter(
         }
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1
-            slide as ImageSlide
-            bind.imageSource = slide.imageSource
+            bind.imageSlide = slide as ImageSlide
         }
     }
 

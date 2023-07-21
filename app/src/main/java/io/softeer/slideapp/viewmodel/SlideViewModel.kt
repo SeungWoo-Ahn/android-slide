@@ -58,7 +58,7 @@ class SlideViewModel(
             if (plus) {
                 collectSlide(manager.increaseSlideAlpha(it))
             }
-            if (!plus) {
+            else {
                 collectSlide(manager.decreaseSlideAlpha(it))
             }
             adapter.notifyCurrentItemChanged()

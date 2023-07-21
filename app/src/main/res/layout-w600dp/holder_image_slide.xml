@@ -10,8 +10,8 @@
             type="Integer" />
 
         <variable
-            name="imageSource"
-            type="io.softeer.slideapp.data.ImageSource" />
+            name="imageSlide"
+            type="io.softeer.slideapp.model.ImageSlide" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            slideImg="@{imageSource.imgBinary}"/>
+            slideImg="@{imageSlide.imageSource.imgBinary}"
+            imgAlpha="@{imageSlide.color.alpha}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
