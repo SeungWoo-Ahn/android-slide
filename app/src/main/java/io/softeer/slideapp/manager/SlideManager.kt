@@ -1,6 +1,7 @@
 package io.softeer.slideapp.manager
 
 import io.softeer.slideapp.factory.TypeSlideFactory
+import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.Slide
 
 class SlideManager {
@@ -29,6 +30,15 @@ class SlideManager {
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
         currentSlide.color = factory.decreaseSlideColorAlpha(currentSlide)
         return currentSlide
+    }
+
+    fun changeSlideImageSource(currentSlide: Slide, imageByteArray: ByteArray): Slide {
+        currentSlide.let {
+            if (it is ImageSlide) {
+                it.imageSource = factory.changeSlideImage(imageByteArray)
+            }
+            return currentSlide
+        }
     }
 
 }

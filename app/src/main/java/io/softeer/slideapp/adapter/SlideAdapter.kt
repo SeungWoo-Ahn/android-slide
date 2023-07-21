@@ -12,6 +12,7 @@ import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.HolderImageSlideBinding
 import io.softeer.slideapp.databinding.HolderRectSlideBinding
 import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.Slide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
@@ -90,6 +91,8 @@ class SlideAdapter(
         }
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1
+            slide as ImageSlide
+            bind.imageSource = slide.imageSource
         }
     }
 

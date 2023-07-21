@@ -8,9 +8,13 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import io.softeer.slideapp.R
 import io.softeer.slideapp.adapter.ItemTouchHelperCallback
 import io.softeer.slideapp.util.DoubleClickListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @BindingAdapter("isSelect")
 fun setSelectStatus(view: View, status: Boolean) {
@@ -52,14 +56,17 @@ fun setDoubleClickListener(view: View, doubleClickListener: DoubleClickListener)
 }
 
 @BindingAdapter("slideImg")
-fun setSlideImage(view: ImageView, source: String?) {
-    if (source.isNullOrEmpty()) {
-        view.setImageDrawable(
+fun setSlideImage(view: ImageView, source: ByteArray?) {
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).asBitmap().load(source).placeholder(
             AppCompatResources.getDrawable(
                 view.context,
                 R.drawable.ic_image
             )
-        )
-        return
+        ).apply {
+            CoroutineScope(Dispatchers.Main).launch {
+                into(view)
+            }
+        }
     }
 }

@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="io.softeer.slideapp.viewmodel.SlideViewModel" />
+        <variable
+            name="activity"
+            type="io.softeer.slideapp.MainActivity" />
         <import type="io.softeer.slideapp.enums.SlideType"/>
     </data>
 
@@ -56,7 +59,7 @@
             app:layout_constraintTop_toTopOf="@id/v_center"
             android:visibility="@{viewModel.slideType == SlideType.Image ? 0 : 8}"
             isSelect="@{viewModel.slideSelect}"
-            onDoubleClick="@{viewModel.imageClickListener}"
+            onDoubleClick="@{activity.imageClickListener}"
             slideImg="@{viewModel.slideImgSource}"/>
 
         <com.google.android.material.card.MaterialCardView
