@@ -9,7 +9,7 @@ import io.softeer.slideapp.model.Slide
 
 class TypeSlideFactory : SlideFactory() {
 
-    override fun createSlide(): Slide {
+    override fun createRandomSlide(): Slide {
         return when(createSlideType()) {
             Rect -> {
                 val side = createSlideSide()
