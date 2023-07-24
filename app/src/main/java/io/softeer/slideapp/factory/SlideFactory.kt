@@ -9,6 +9,13 @@ import java.util.UUID
 
 abstract class SlideFactory {
 
+    private val random = Random()
+
+    fun createSlideType(): SlideType {
+        val slideTypeList = SlideType.values()
+        return slideTypeList[random.nextInt(slideTypeList.size)]
+    }
+
     fun createSlideUuid(): String {
         val uniqueId = UUID.randomUUID().toString().replace("-", "")
         val formattedId = mutableListOf<String>()
@@ -18,19 +25,32 @@ abstract class SlideFactory {
         return formattedId.joinToString("-")
     }
 
-    fun createSlideSide(): Int {
-        return Random().nextInt(500) + 1
+    fun createSlideSize(): Int {
+        return random.nextInt(500) + 1
     }
 
     fun createSlideColor(): RGBColor {
-        val random = Random()
-        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(10) + 1)
+        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256))
     }
 
-    fun createSlideType(): SlideType {
-        val random = Random()
-        val slideTypeList = SlideType.values()
-        return slideTypeList[random.nextInt(slideTypeList.size)]
+    fun createSlideAlpha(): Int {
+        return random.nextInt(10) + 1
+    }
+
+    fun increaseSlideAlpha(slide: Slide): Int {
+        val alpha = slide.alpha
+        if (alpha == 10) {
+            return alpha
+        }
+        return alpha + 1
+    }
+
+    fun decreaseSlideAlpha(slide: Slide): Int {
+        val alpha = slide.alpha
+        if (alpha == 1) {
+            return alpha
+        }
+        return alpha - 1
     }
 
     fun changeSlideImage(imageByteArray: ByteArray): ImageSource {

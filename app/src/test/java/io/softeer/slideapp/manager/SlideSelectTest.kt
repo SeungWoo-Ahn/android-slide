@@ -8,7 +8,7 @@ import org.junit.Test
 class SlideSelectTest {
 
     private val manager = SlideManager()
-    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Rect)
+    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Square)
 
     @Test
     fun selectSlide_selectTrue_returnTrue() {

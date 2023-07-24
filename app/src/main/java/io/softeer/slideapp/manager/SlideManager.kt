@@ -2,6 +2,7 @@ package io.softeer.slideapp.manager
 
 import io.softeer.slideapp.factory.TypeSlideFactory
 import io.softeer.slideapp.model.ImageSlide
+import io.softeer.slideapp.model.SquareSlide
 import io.softeer.slideapp.model.Slide
 
 class SlideManager {
@@ -18,17 +19,19 @@ class SlideManager {
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        currentSlide.color.changeRandomColor()
+        if (currentSlide is SquareSlide) {
+            currentSlide.color = factory.createSlideColor()
+        }
         return currentSlide
     }
 
     fun increaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.color.increaseAlpha()
+        currentSlide.alpha = factory.increaseSlideAlpha(currentSlide)
         return currentSlide
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.color.decreaseAlpha()
+        currentSlide.alpha = factory.decreaseSlideAlpha(currentSlide)
         return currentSlide
     }
 

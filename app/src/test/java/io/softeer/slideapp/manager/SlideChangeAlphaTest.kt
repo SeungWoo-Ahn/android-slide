@@ -13,7 +13,7 @@ class SlideChangeAlphaTest{
 
     @Before
     fun setUp() {
-        currentSlide = TypeSlideFactory().createSlide(io.softeer.slideapp.enums.SlideType.Rect)
+        currentSlide = TypeSlideFactory().createSlide(io.softeer.slideapp.enums.SlideType.Square)
     }
 
     @Test

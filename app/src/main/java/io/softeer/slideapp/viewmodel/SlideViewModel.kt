@@ -9,6 +9,7 @@ import io.softeer.slideapp.manager.ImageManger
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.model.SquareSlide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -31,12 +32,10 @@ class SlideViewModel(
         slide.let {
             _currentSlide.value = it
             slideType.value = it.type
-            slideHexColor.value = it.color.getHexColorStr()
-            slideAlpha.value = it.color.alpha
+            slideAlpha.value = it.alpha
             slideSelect.value = it.isSelect
-            if (it is ImageSlide) {
-                slideImgSource.value = if (it.imageSource != null) it.imageSource!!.imgBinary else null
-            }
+            slideHexColor.value = if (it is SquareSlide) it.getHexColorStr() else null
+            slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource!!.imgBinary else null
         }
     }
 
@@ -83,5 +82,9 @@ class SlideViewModel(
         adapter.addSlide(manager.createSlideInstance()) {
             collectSlide(it)
         }
+    }
+
+    fun onLoadSlide(): Boolean {
+        return true
     }
 }
