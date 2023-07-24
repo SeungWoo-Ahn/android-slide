@@ -8,7 +8,7 @@ import org.junit.Test
 class SlideChangeColorTest{
 
     private val manager = SlideManager()
-    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Rect)
+    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Square)
 
     @Test
     fun changeSlideColor_toRandomColor_notEquals() {

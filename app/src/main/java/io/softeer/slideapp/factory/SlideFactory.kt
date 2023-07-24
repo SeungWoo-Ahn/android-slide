@@ -11,6 +11,11 @@ abstract class SlideFactory {
 
     private val random = Random()
 
+    fun createSlideType(): SlideType {
+        val slideTypeList = SlideType.values()
+        return slideTypeList[random.nextInt(slideTypeList.size)]
+    }
+
     fun createSlideUuid(): String {
         val uniqueId = UUID.randomUUID().toString().replace("-", "")
         val formattedId = mutableListOf<String>()
@@ -33,45 +38,24 @@ abstract class SlideFactory {
         )
     }
 
-    fun changeOnlySlideColor(slide: Slide): RGBColor {
-        return RGBColor(
-            random.nextInt(256),
-            random.nextInt(256),
-            random.nextInt(256),
-            slide.color.alpha
-        )
+    fun createSlideAlpha(): Int {
+        return random.nextInt(10) + 1
     }
 
-    fun increaseSlideColorAlpha(slide: Slide): RGBColor {
-        var currentAlpha = slide.color.alpha
-        if (currentAlpha != 10) {
-            currentAlpha++
+    fun increaseSlideAlpha(slide: Slide): Int {
+        val alpha = slide.alpha
+        if (alpha == 10) {
+            return alpha
         }
-        return RGBColor(
-            slide.color.r,
-            slide.color.g,
-            slide.color.b,
-            currentAlpha
-        )
+        return alpha + 1
     }
 
-    fun decreaseSlideColorAlpha(slide: Slide): RGBColor {
-        var currentAlpha = slide.color.alpha
-        if (currentAlpha != 1) {
-            currentAlpha--
+    fun decreaseSlideAlpha(slide: Slide): Int {
+        val alpha = slide.alpha
+        if (alpha == 1) {
+            return alpha
         }
-        return RGBColor(
-            slide.color.r,
-            slide.color.g,
-            slide.color.b,
-            currentAlpha
-        )
-    }
-
-    fun createSlideType(): SlideType {
-        val random = Random()
-        val slideTypeList = SlideType.values()
-        return slideTypeList[random.nextInt(slideTypeList.size)]
+        return alpha - 1
     }
 
     fun changeSlideImage(imageByteArray: ByteArray): ImageSource {

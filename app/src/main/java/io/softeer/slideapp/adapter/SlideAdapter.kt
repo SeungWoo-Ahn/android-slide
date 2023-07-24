@@ -14,6 +14,7 @@ import io.softeer.slideapp.databinding.HolderRectSlideBinding
 import io.softeer.slideapp.enums.SlideType
 import io.softeer.slideapp.model.ImageSlide
 import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.model.SquareSlide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
@@ -25,7 +26,7 @@ class SlideAdapter(
     private val currentPosition = MutableStateFlow(0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == SlideType.Rect.viewType) {
+        if (viewType == SlideType.Square.viewType) {
             return RectViewHolder(
                 DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_rect_slide, parent, false)
             )
@@ -45,7 +46,7 @@ class SlideAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(slideList[position].type.viewType) {
-            SlideType.Rect.viewType -> {
+            SlideType.Square.viewType -> {
                 (holder as RectViewHolder).bind(slideList[position])
             }
             SlideType.Image.viewType -> {
@@ -87,7 +88,7 @@ class SlideAdapter(
         }
         if (bind is HolderRectSlideBinding) {
             bind.slideIndex = position + 1
-            bind.slide = slide
+            bind.squareSlide = slide as SquareSlide
         }
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1

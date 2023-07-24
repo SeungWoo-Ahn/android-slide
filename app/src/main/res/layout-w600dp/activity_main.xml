@@ -78,7 +78,7 @@
             app:layout_constraintBottom_toBottomOf="@id/v_center"
             app:layout_constraintStart_toStartOf="@id/v_center"
             app:layout_constraintEnd_toEndOf="@id/v_center"
-            android:visibility="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Rect ? 0 : 8}"
+            android:visibility="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Square ? 0 : 8}"
             app:strokeWidth="@{viewModel.slideSelect ? 2 : 0}"
             slideColor="@{viewModel.slideHexColor}"
             android:onClick="@{v -> viewModel.changeSlideStatus(true)}"/>
@@ -179,7 +179,7 @@
             app:layout_constraintEnd_toStartOf="@id/v_alpha_button_divider"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 1}"
+            android:enabled="@{viewModel.slideAlpha != 1}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(false)}"/>
 
         <TextView
@@ -194,7 +194,7 @@
             app:layout_constraintEnd_toEndOf="@id/v_alpha_button_container"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 10}"
+            android:enabled="@{viewModel.slideAlpha != 10}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(true)}"/>
 
         <TextView
@@ -209,7 +209,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/v_side_left"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="@{v -> viewModel.onAddSlide()}"/>
+            android:onClick="@{v -> viewModel.onAddSlide()}"
+            android:onLongClick="@{v -> viewModel.onLoadSlide()}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"

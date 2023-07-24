@@ -1,6 +1,5 @@
 package io.softeer.slideapp.data
 
-import java.util.Random
 
 data class RGBColor(
     val r: Int,
