@@ -18,24 +18,18 @@ class SlideManager {
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        currentSlide.let {
-            it.color = factory.changeOnlySlideColor(it)
-            return it
-        }
+        currentSlide.color = factory.changeOnlySlideColor(currentSlide)
+        return currentSlide
     }
 
     fun increaseSlideAlpha(currentSlide: Slide): Slide {
-        currentSlide.let {
-            it.color = factory.increaseSlideColorAlpha(it)
-            return it
-        }
+        currentSlide.color = factory.increaseSlideColorAlpha(currentSlide)
+        return currentSlide
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.let {
-            it.color = factory.decreaseSlideColorAlpha(it)
-            return it
-        }
+        currentSlide.color = factory.decreaseSlideColorAlpha(currentSlide)
+        return currentSlide
     }
 
 }
