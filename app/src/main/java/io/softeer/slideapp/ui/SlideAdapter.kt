@@ -1,4 +1,4 @@
-package io.softeer.slideapp.adapter
+package io.softeer.slideapp.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,12 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
+import io.softeer.slideapp.util.ItemTouchListener
 import io.softeer.slideapp.databinding.HolderImageSlideBinding
 import io.softeer.slideapp.databinding.HolderRectSlideBinding
-import io.softeer.slideapp.enums.SlideType
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.Slide
-import io.softeer.slideapp.model.SquareSlide
+import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.Slide
+import io.softeer.slideapp.data.model.SquareSlide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 

@@ -1,8 +1,7 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.factory.TypeSlideFactory
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.local.RGBColor
+import io.softeer.slideapp.data.model.Slide
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -11,11 +10,10 @@ class SlideChangeAlphaTest{
 
     private val manager = SlideManager()
     private lateinit var currentSlide : Slide
-    private val factory = TypeSlideFactory()
 
     @Before
     fun setUp() {
-        factory.createRandomSlide()
+        currentSlide = manager.createSlideInstance()
     }
 
     @Test

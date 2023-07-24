@@ -1,4 +1,4 @@
-package io.softeer.slideapp.viewmodel
+package io.softeer.slideapp.ui
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import io.softeer.slideapp.R
-import io.softeer.slideapp.adapter.ItemTouchHelperCallback
+import io.softeer.slideapp.util.ItemTouchHelperCallback
 import io.softeer.slideapp.util.DoubleClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

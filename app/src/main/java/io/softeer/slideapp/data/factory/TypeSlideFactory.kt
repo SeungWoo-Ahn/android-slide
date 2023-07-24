@@ -1,9 +1,9 @@
-package io.softeer.slideapp.factory
+package io.softeer.slideapp.data.factory
 
-import io.softeer.slideapp.enums.SlideType.*
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.SquareSlide
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.enums.SlideType.*
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.data.model.Slide
 
 class TypeSlideFactory : SlideFactory() {
 

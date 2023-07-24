@@ -1,4 +1,4 @@
-package io.softeer.slideapp.adapter
+package io.softeer.slideapp.util
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

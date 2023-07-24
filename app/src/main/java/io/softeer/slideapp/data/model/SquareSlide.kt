@@ -1,7 +1,7 @@
-package io.softeer.slideapp.model
+package io.softeer.slideapp.data.model
 
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.data.local.RGBColor
+import io.softeer.slideapp.data.enums.SlideType
 
 data class SquareSlide(
     override val id: String,

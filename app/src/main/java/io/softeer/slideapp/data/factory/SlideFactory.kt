@@ -1,9 +1,9 @@
-package io.softeer.slideapp.factory
+package io.softeer.slideapp.data.factory
 
-import io.softeer.slideapp.data.ImageSource
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.enums.SlideType
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.local.ImageSource
+import io.softeer.slideapp.data.local.RGBColor
+import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.model.Slide
 import java.util.Random
 import java.util.UUID
 

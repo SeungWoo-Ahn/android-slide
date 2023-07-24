@@ -2,7 +2,7 @@ package io.softeer.slideapp.manager
 
 import android.content.Intent
 import android.net.Uri
-import io.softeer.slideapp.MainActivity
+import io.softeer.slideapp.ui.MainActivity
 
 class ImageManger {
 
