@@ -9,8 +9,8 @@
             name="slideIndex"
             type="Integer" />
         <variable
-            name="slide"
-            type="io.softeer.slideapp.data.model.Slide" />
+            name="squareSlide"
+            type="io.softeer.slideapp.data.model.SquareSlide" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            slideColor="@{slide.color.hexColorStr}"/>
+            slideColor="@{squareSlide.hexColorStr}"/>
 
         <ImageView
             android:layout_width="0dp"
