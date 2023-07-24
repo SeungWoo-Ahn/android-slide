@@ -1,6 +1,7 @@
 package io.softeer.slideapp.factory
 
-import io.softeer.slideapp.data.RGBColor
+import io.softeer.slideapp.data.local.ImageSource
+import io.softeer.slideapp.data.local.RGBColor
 import io.softeer.slideapp.enums.SlideType
 import io.softeer.slideapp.model.Slide
 import java.util.Random
@@ -23,7 +24,7 @@ abstract class SlideFactory {
 
     fun createSlideColor(): RGBColor {
         val random = Random()
-        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256), random.nextInt(10) + 1)
+        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256))
     }
 
     fun createSlideType(): SlideType {
@@ -32,5 +33,9 @@ abstract class SlideFactory {
         return slideTypeList[random.nextInt(slideTypeList.size)]
     }
 
-    abstract fun createSlide(): Slide
+    fun changeSlideImage(imageByteArray: ByteArray): ImageSource {
+        return ImageSource(imageByteArray)
+    }
+
+    abstract fun createRandomSlide(): Slide
 }

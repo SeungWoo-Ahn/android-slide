@@ -1,7 +1,6 @@
 package io.softeer.slideapp.model
 
-import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.data.Size
+import io.softeer.slideapp.data.local.RGBColor
 import io.softeer.slideapp.enums.SlideType
 
 data class ImageSlide(
