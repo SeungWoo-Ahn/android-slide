@@ -1,7 +1,12 @@
 package io.softeer.slideapp.data.model
 
+<<<<<<< HEAD
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.local.RGBColor
+=======
+import io.softeer.slideapp.data.local.RGBColor
+import io.softeer.slideapp.data.enums.SlideType
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
 
 data class SquareSlide(
     override val id: String,

@@ -1,8 +1,20 @@
 package io.softeer.slideapp.data.factory
 
+<<<<<<< HEAD
 import io.softeer.slideapp.data.local.RGBColor
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.model.Slide
+=======
+import io.softeer.slideapp.data.local.ImageSource
+import io.softeer.slideapp.data.local.RGBColor
+<<<<<<<< HEAD:app/src/main/java/io/softeer/slideapp/data/factory/SlideFactory.kt
+import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.model.Slide
+========
+import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.model.Slide
+>>>>>>>> f375d22 (Fix : 폴더 구조 변경):app/src/main/java/io/softeer/slideapp/factory/SlideFactory.kt
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
 import java.util.Random
 import java.util.UUID
 
@@ -29,11 +41,16 @@ abstract class SlideFactory {
     }
 
     fun createSlideColor(): RGBColor {
+<<<<<<< HEAD
         return RGBColor(
             random.nextInt(256),
             random.nextInt(256),
             random.nextInt(256),
         )
+=======
+        val random = Random()
+        return RGBColor(random.nextInt(256), random.nextInt(256), random.nextInt(256))
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
     }
 
     fun createSlideAlpha(): Int {
@@ -56,5 +73,12 @@ abstract class SlideFactory {
         return alpha - 1
     }
 
+<<<<<<< HEAD
+=======
+    fun changeSlideImage(imageByteArray: ByteArray): ImageSource {
+        return ImageSource(imageByteArray)
+    }
+
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
     abstract fun createRandomSlide(): Slide
 }

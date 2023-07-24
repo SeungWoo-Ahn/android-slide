@@ -14,7 +14,11 @@ class TypeSlideFactory : SlideFactory() {
             }
 
             Image -> {
+<<<<<<< HEAD
                 ImageSlide(createSlideUuid(), null, null, createSlideAlpha())
+=======
+                ImageSlide(createSlideUuid(), null, createSlideAlpha())
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
             }
         }
     }

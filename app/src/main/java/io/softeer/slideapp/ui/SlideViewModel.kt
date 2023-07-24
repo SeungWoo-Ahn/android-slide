@@ -1,8 +1,12 @@
 package io.softeer.slideapp.ui
 
 import androidx.lifecycle.ViewModel
+<<<<<<< HEAD
 import androidx.lifecycle.viewModelScope
 import io.softeer.slideapp.api.RetrofitClient
+=======
+<<<<<<<< HEAD:app/src/main/java/io/softeer/slideapp/ui/SlideViewModel.kt
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
 import io.softeer.slideapp.util.ItemTouchHelperCallback
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.manager.ImageManger
@@ -10,6 +14,7 @@ import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SquareSlide
+<<<<<<< HEAD
 import io.softeer.slideapp.data.repository.SlideRepositoryImpl
 import io.softeer.slideapp.data.repository.local.LocalDB
 import io.softeer.slideapp.data.repository.local.LocalDataSource
@@ -25,6 +30,21 @@ class SlideViewModel(
         LocalDataSource(LocalDB()),
         RemoteDataSource(RetrofitClient.slideService)
     )
+=======
+========
+import io.softeer.slideapp.adapter.ItemTouchHelperCallback
+import io.softeer.slideapp.adapter.SlideAdapter
+import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.manager.SlideManager
+import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.model.SquareSlide
+>>>>>>>> f375d22 (Fix : 폴더 구조 변경):app/src/main/java/io/softeer/slideapp/viewmodel/SlideViewModel.kt
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
+class SlideViewModel(
+    private val manager: SlideManager = SlideManager()
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
 ) : ViewModel() {
 
     private val _currentSlide = MutableStateFlow<Slide?>(null)
@@ -33,8 +53,12 @@ class SlideViewModel(
     val slideHexColor = MutableStateFlow<String?>(null)
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
+<<<<<<< HEAD
     val slideImgSource = MutableStateFlow<ByteArray?>(null)
     val adapter = SlideAdapter(repositoryImpl.getAllLocalSlides(),::onSlideClick)
+=======
+    val adapter = SlideAdapter(::onSlideClick)
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
     private fun collectSlide(slide: Slide) {
@@ -43,8 +67,16 @@ class SlideViewModel(
             slideType.value = it.type
             slideAlpha.value = it.alpha
             slideSelect.value = it.isSelect
+<<<<<<< HEAD
             slideHexColor.value = if (it is SquareSlide) it.getHexColorStr() else null
             slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource else null
+=======
+<<<<<<< HEAD
+=======
+            slideHexColor.value = if (it is SquareSlide) it.getHexColorStr() else null
+            slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource!!.imgBinary else null
+>>>>>>> d526cc2 (Feat : Retrofit 사용 준비, Fix : dataclass 수정)
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
         }
     }
 
@@ -65,13 +97,19 @@ class SlideViewModel(
         currentSlide.value?.let {
             if (plus) {
                 collectSlide(manager.increaseSlideAlpha(it))
+<<<<<<< HEAD
             } else {
+=======
+            }
+            else {
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
                 collectSlide(manager.decreaseSlideAlpha(it))
             }
             adapter.notifyCurrentItemChanged()
         }
     }
 
+<<<<<<< HEAD
     fun pickImage(activity: MainActivity, onSuccess: (ByteArray?) -> Unit) {
         imgManager.pickImageFromGallery(activity, onSuccess)
     }
@@ -82,11 +120,14 @@ class SlideViewModel(
         }
     }
 
+=======
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
     private fun onSlideClick(slide: Slide) {
         collectSlide(slide)
     }
 
     fun onAddSlide() {
+<<<<<<< HEAD
        addNewSlide(manager.createSlideInstance())
     }
 
@@ -114,4 +155,14 @@ class SlideViewModel(
             collectSlide(it)
         }
     }
+=======
+        adapter.addSlide(manager.createSlideInstance()) {
+            collectSlide(it)
+        }
+    }
+
+    fun onLoadSlide(): Boolean {
+        return true
+    }
+>>>>>>> f375d22 (Fix : 폴더 구조 변경)
 }
