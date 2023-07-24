@@ -78,5 +78,5 @@ abstract class SlideFactory {
         return ImageSource(imageByteArray)
     }
 
-    abstract fun createSlide(): Slide
+    abstract fun createRandomSlide(): Slide
 }
