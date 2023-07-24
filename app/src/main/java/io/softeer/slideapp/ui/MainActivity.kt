@@ -1,4 +1,4 @@
-package io.softeer.slideapp
+package io.softeer.slideapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,9 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.ActivityMainBinding
 import io.softeer.slideapp.util.DoubleClickListener
-import io.softeer.slideapp.viewmodel.SlideViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bind : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val bind : ActivityMainBinding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
         bind.viewModel = viewModel
         bind.activity = this
         bind.lifecycleOwner = this

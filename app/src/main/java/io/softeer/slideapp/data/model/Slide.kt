@@ -1,6 +1,6 @@
-package io.softeer.slideapp.model
+package io.softeer.slideapp.data.model
 
-import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.data.enums.SlideType
 
 interface Slide {
     var type: SlideType

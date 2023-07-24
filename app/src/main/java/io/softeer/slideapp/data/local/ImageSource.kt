@@ -1,4 +1,4 @@
-package io.softeer.slideapp.data
+package io.softeer.slideapp.data.local
 
 data class ImageSource(
     val imgBinary: ByteArray

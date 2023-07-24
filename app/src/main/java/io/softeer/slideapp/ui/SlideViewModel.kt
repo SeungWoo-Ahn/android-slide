@@ -1,15 +1,13 @@
-package io.softeer.slideapp.viewmodel
+package io.softeer.slideapp.ui
 
 import androidx.lifecycle.ViewModel
-import io.softeer.slideapp.MainActivity
-import io.softeer.slideapp.adapter.ItemTouchHelperCallback
-import io.softeer.slideapp.adapter.SlideAdapter
-import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.util.ItemTouchHelperCallback
+import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.manager.ImageManger
 import io.softeer.slideapp.manager.SlideManager
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.Slide
-import io.softeer.slideapp.model.SquareSlide
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.Slide
+import io.softeer.slideapp.data.model.SquareSlide
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -28,7 +26,7 @@ class SlideViewModel(
     val adapter = SlideAdapter(::onSlideClick)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
-    private fun collectSlide(slide:  Slide) {
+    private fun collectSlide(slide: Slide) {
         slide.let {
             _currentSlide.value = it
             slideType.value = it.type

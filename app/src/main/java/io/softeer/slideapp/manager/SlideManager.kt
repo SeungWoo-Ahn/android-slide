@@ -1,9 +1,9 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.factory.TypeSlideFactory
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.SquareSlide
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.factory.TypeSlideFactory
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.data.model.Slide
 
 class SlideManager {
 

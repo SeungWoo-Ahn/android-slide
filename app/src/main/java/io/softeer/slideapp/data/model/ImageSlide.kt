@@ -1,7 +1,7 @@
-package io.softeer.slideapp.model
+package io.softeer.slideapp.data.model
 
-import io.softeer.slideapp.data.ImageSource
-import io.softeer.slideapp.enums.SlideType
+import io.softeer.slideapp.data.local.ImageSource
+import io.softeer.slideapp.data.enums.SlideType
 
 data class ImageSlide(
     override val id: String,

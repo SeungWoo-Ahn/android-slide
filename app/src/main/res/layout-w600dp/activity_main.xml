@@ -7,11 +7,11 @@
     <data>
         <variable
             name="viewModel"
-            type="io.softeer.slideapp.viewmodel.SlideViewModel" />
+            type="io.softeer.slideapp.ui.SlideViewModel" />
         <variable
             name="activity"
-            type="io.softeer.slideapp.MainActivity" />
-        <import type="io.softeer.slideapp.enums.SlideType"/>
+            type="io.softeer.slideapp.ui.MainActivity" />
+        <import type="io.softeer.slideapp.data.enums.SlideType"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

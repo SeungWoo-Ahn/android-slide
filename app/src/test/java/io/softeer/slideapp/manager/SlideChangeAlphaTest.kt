@@ -1,7 +1,8 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.factory.TypeSlideFactory
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.factory.TypeSlideFactory
+import io.softeer.slideapp.data.model.Slide
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -13,7 +14,7 @@ class SlideChangeAlphaTest{
 
     @Before
     fun setUp() {
-        currentSlide = TypeSlideFactory().createSlide(io.softeer.slideapp.enums.SlideType.Square)
+        currentSlide = TypeSlideFactory().createSlide(SlideType.Square)
     }
 
     @Test
