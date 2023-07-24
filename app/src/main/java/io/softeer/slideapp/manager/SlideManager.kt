@@ -33,12 +33,10 @@ class SlideManager {
     }
 
     fun changeSlideImageSource(currentSlide: Slide, imageByteArray: ByteArray): Slide {
-        currentSlide.let {
-            if (it is ImageSlide) {
-                it.imageSource = factory.changeSlideImage(imageByteArray)
-            }
-            return currentSlide
+        if (currentSlide is ImageSlide) {
+            currentSlide.imageSource = factory.changeSlideImage(imageByteArray)
         }
+        return currentSlide
     }
 
 }
