@@ -64,3 +64,25 @@ Android 학습 프로젝트 #2
   
 #### 실행화면
 <img width="570" alt="스크린샷 2023-07-19 오후 2 38 52" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/4f080be3-433a-4ee0-b6b7-1925b02d6c81">
+
+
+### 사진 슬라이드 추가하기
+
+1. 슬라이드 목록
+   1) 슬라이드 타입(enum)을 Random을 이용하여 생성한다
+   2) 목록 아이템을 길게 누를 시 Popup Menu를 띄운다
+   3) Popup Menu 중 하나를 선택 시, Slide의 위치를 이동시킨다
+   4) 목록의 position을 계산하여 notifyItemChanged와 notifyItemRangeChanged로 화면을 갱신하다
+2. 사진 슬라이드
+   1) constraintedHeight/Width, constriantVertical_bias를 이용해 이미지 슬라이드 위치와 크기 제한을 준다
+   2) selector(xml)을 이용해 슬라이드 선택 여부를 표시한다
+   3) CustomTarget<Bitmap>을 이용하여 이미지 투명도를 조절한다
+3. 사진 불러오기
+   1) manifest에 외부 파일 접근 권한을 추가한다
+   2) byteArray를 갖는 ImageSource 객체를 추가한다
+   3) ImageManager로 갤러리에서 가져온 이미지 Uri를 byteArray로 변형시킨다
+   4) resultLauncher로 이미지를 가져오면 화면과 목록을 갱신한다
+  
+#### 실행화면
+<img width="537" alt="스크린샷 2023-07-24 오전 11 02 14" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/f525134a-bab9-411e-9881-0eae289bd510">
+
