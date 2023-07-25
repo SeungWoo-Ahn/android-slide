@@ -86,3 +86,21 @@ Android 학습 프로젝트 #2
 #### 실행화면
 <img width="537" alt="스크린샷 2023-07-24 오전 11 02 14" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/f525134a-bab9-411e-9881-0eae289bd510">
 
+
+### 슬라이드 불러오기
+
+1. Retrofit
+   1) RetrofitClient를 Object로 만들었다-> OkHttpClient와 Retrofit객체를 최초 생성후 다시 사용하기 위해
+   2) 네트워크 통신 interface SlideApi를 만들고, 사용할 메서드를 suspend fun으로 선언하였다-> 코루틴 내부에서 실행하기 위해
+   3) 네트워크 통신용 RemoteSlide 객체를 만들었고, 로컬에서 사용하는 Slide 객체로 변환하는 메서드를 선언했다
+2. Repository
+   1) 로컬, 네트워크 통신용 localDataSource와 remoteDataSource를 만들었다-> Room을 사용하지 않으므로 localDataSource는 LocalDB(슬라이드 리스트)를 캡슐화한다
+   2) SlideRepository에 필요한 메서드를 선언하고 해당 구현체에 dataSource를 포함시켜 구현했다-> 여기서 랜덤으로 서버 데이터를 호출한다
+   3) ViewModel에서 SlideRepository 구현체를 생성하여 사용한다
+3. 이미지 변환
+   1) ImageManger에 suspend fun으로 url을 byteArray로 변환하는 메서드를 작성했다
+   2) 해당 메서드는 ViewModel에서 네트워크 통신을 하는 코루틴 블록 안에서 실행된다
+  
+#### 실행화면
+<img width="533" alt="스크린샷 2023-07-25 오후 1 26 22" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/e56740f9-5de5-461a-8e33-f7384f0eb7d2">
+
