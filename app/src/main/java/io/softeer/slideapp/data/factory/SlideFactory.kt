@@ -1,6 +1,5 @@
 package io.softeer.slideapp.data.factory
 
-import io.softeer.slideapp.data.local.ImageSource
 import io.softeer.slideapp.data.local.RGBColor
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.model.Slide
@@ -25,7 +24,7 @@ abstract class SlideFactory {
         return formattedId.joinToString("-")
     }
 
-    fun createSlideSide(): Int {
+    fun createSlideSize(): Int {
         return random.nextInt(500) + 1
     }
 
@@ -34,7 +33,6 @@ abstract class SlideFactory {
             random.nextInt(256),
             random.nextInt(256),
             random.nextInt(256),
-            random.nextInt(10) + 1
         )
     }
 
@@ -56,10 +54,6 @@ abstract class SlideFactory {
             return alpha
         }
         return alpha - 1
-    }
-
-    fun changeSlideImage(imageByteArray: ByteArray): ImageSource {
-        return ImageSource(imageByteArray)
     }
 
     abstract fun createRandomSlide(): Slide
