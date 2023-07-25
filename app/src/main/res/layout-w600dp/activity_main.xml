@@ -47,15 +47,16 @@
             android:id="@+id/v_slide"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:elevation="0dp"
+            app:cardElevation="0dp"
             app:strokeColor="@color/purple_700"
             app:cardCornerRadius="@dimen/cardview_default_radius"
             app:layout_constraintTop_toTopOf="@id/v_center"
             app:layout_constraintBottom_toBottomOf="@id/v_center"
             app:layout_constraintStart_toStartOf="@id/v_center"
             app:layout_constraintEnd_toEndOf="@id/v_center"
-            app:strokeWidth="@{viewModel.currentSlide.select ? 2 : 0}"
-            slideColor="@{viewModel.currentSlide.color.hexColorStr}"
+            android:visibility="@{viewModel.currentSlide == null ? 4 : 0}"
+            app:strokeWidth="@{viewModel.slideSelect ? 2 : 0}"
+            slideColor="@{viewModel.slideHexColor}"
             android:onClick="@{v -> viewModel.changeSlideStatus(true)}"/>
 
         <TextView
@@ -83,10 +84,10 @@
             app:layout_constraintStart_toStartOf="@id/v_side_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_background_text"
-            android:enabled="@{viewModel.currentSlide.select}"
-            android:text="@{viewModel.currentSlide.select ? viewModel.currentSlide.color.hexColorStr : @string/str_empty}"
+            android:enabled="@{viewModel.slideSelect}"
+            android:text="@{viewModel.slideSelect ? viewModel.slideHexColor : @string/str_empty}"
             android:onClick="@{v -> viewModel.changeSlideColor()}"
-            slideColor="@{viewModel.currentSlide.color.hexColorStr}"
+            slideColor="@{viewModel.slideHexColor}"
             tools:text="0xFFCC00"/>
 
         <TextView
@@ -118,7 +119,7 @@
             app:layout_constraintStart_toStartOf="@id/v_side_right"
             app:layout_constraintTop_toBottomOf="@id/tv_alpha_text"
             tools:text="10"
-            android:text="@{viewModel.currentSlide.select ? String.valueOf(viewModel.currentSlide.color.alpha) : @string/str_empty}"/>
+            android:text="@{viewModel.slideSelect ? String.valueOf(viewModel.slideAlpha) : @string/str_empty}"/>
 
         <View
             android:id="@+id/v_alpha_button_container"
@@ -154,7 +155,7 @@
             app:layout_constraintEnd_toStartOf="@id/v_alpha_button_divider"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 1 &amp; viewModel.currentSlide.select}"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 1 &amp; viewModel.slideSelect}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(false)}"/>
 
         <TextView
@@ -169,8 +170,35 @@
             app:layout_constraintEnd_toEndOf="@id/v_alpha_button_container"
             app:layout_constraintTop_toTopOf="@id/v_alpha_button_container"
             app:layout_constraintBottom_toBottomOf="@id/v_alpha_button_container"
-            android:enabled="@{viewModel.currentSlide.color.alpha != 10 &amp; viewModel.currentSlide.select}"
+            android:enabled="@{viewModel.currentSlide.color.alpha != 10 &amp; viewModel.slideSelect}"
             android:onClick="@{v -> viewModel.changeSlideAlpha(true)}"/>
+
+        <TextView
+            android:id="@+id/tv_add_button"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="@color/skyBlue"
+            android:text="@string/str_add"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/big_content_size"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/v_side_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{v -> viewModel.onAddSlide()}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/v_side_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_add_button"
+            itemHelper="@{viewModel.itemTouchHelperCallback}"
+            itemDecoration="@{5}"
+            android:adapter="@{viewModel.adapter}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
