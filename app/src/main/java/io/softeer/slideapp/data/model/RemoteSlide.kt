@@ -22,6 +22,7 @@ data class RemoteSlide(
     fun asImageSlide(): ImageSlide = ImageSlide(
         id = id,
         null,
+        url = url,
         alpha = alpha
     )
 }
