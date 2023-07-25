@@ -15,6 +15,7 @@ import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.databinding.HolderDrawingSlideBinding
 import io.softeer.slideapp.databinding.HolderSquareSlideBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
@@ -28,13 +29,18 @@ class SlideAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == SlideType.Square.viewType) {
-            return RectViewHolder(
+            return SquareViewHolder(
                 DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_square_slide, parent, false)
             )
+        } else if(viewType == SlideType.Image.viewType) {
+            return ImageViewHolder(
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_image_slide, parent, false)
+            )
+        } else {
+            return DrawingViewHolder(
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_drawing_slide, parent, false)
+            )
         }
-        return ImageViewHolder(
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_image_slide, parent, false)
-        )
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -48,10 +54,13 @@ class SlideAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(slideList[position].type.viewType) {
             SlideType.Square.viewType -> {
-                (holder as RectViewHolder).bind(slideList[position])
+                (holder as SquareViewHolder).bind(slideList[position])
             }
             SlideType.Image.viewType -> {
                 (holder as ImageViewHolder).bind(slideList[position])
+            }
+            SlideType.Drawing.viewType -> {
+                (holder as DrawingViewHolder).bind(slideList[position])
             }
         }
     }
@@ -65,13 +74,19 @@ class SlideAdapter(
         notifyItemChanged(currentPosition.value)
     }
 
-    inner class RectViewHolder(private val bind: HolderSquareSlideBinding): RecyclerView.ViewHolder(bind.root) {
+    inner class SquareViewHolder(private val bind: HolderSquareSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
             setHolderBind(bind, slide, adapterPosition)
         }
     }
 
     inner class ImageViewHolder(private val bind: HolderImageSlideBinding): RecyclerView.ViewHolder(bind.root) {
+        fun bind(slide: Slide) {
+            setHolderBind(bind, slide, adapterPosition)
+        }
+    }
+
+    inner class DrawingViewHolder(private val bind: HolderDrawingSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
             setHolderBind(bind, slide, adapterPosition)
         }
@@ -92,6 +107,9 @@ class SlideAdapter(
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1
             bind.imageSlide = slide as ImageSlide
+        }
+        if (bind is HolderDrawingSlideBinding) {
+            bind.slideIndex = position + 1
         }
     }
 

@@ -1,6 +1,7 @@
 package io.softeer.slideapp.data.factory
 
 import io.softeer.slideapp.data.enums.SlideType.*
+import io.softeer.slideapp.data.model.DrawingSlide
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.data.model.Slide
@@ -15,6 +16,10 @@ class TypeSlideFactory : SlideFactory() {
 
             Image -> {
                 ImageSlide(createSlideUuid(), null, null, createSlideAlpha())
+            }
+
+            Drawing -> {
+                DrawingSlide(createSlideUuid(), createSlideColor(), createSlideAlpha())
             }
         }
     }
