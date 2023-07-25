@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import io.softeer.slideapp.R
 import io.softeer.slideapp.util.ItemTouchListener
 import io.softeer.slideapp.databinding.HolderImageSlideBinding
-import io.softeer.slideapp.databinding.HolderRectSlideBinding
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.databinding.HolderSquareSlideBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
@@ -29,7 +29,7 @@ class SlideAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == SlideType.Square.viewType) {
             return RectViewHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_rect_slide, parent, false)
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_square_slide, parent, false)
             )
         }
         return ImageViewHolder(
@@ -65,7 +65,7 @@ class SlideAdapter(
         notifyItemChanged(currentPosition.value)
     }
 
-    inner class RectViewHolder(private val bind: HolderRectSlideBinding): RecyclerView.ViewHolder(bind.root) {
+    inner class RectViewHolder(private val bind: HolderSquareSlideBinding): RecyclerView.ViewHolder(bind.root) {
         fun bind(slide: Slide) {
             setHolderBind(bind, slide, adapterPosition)
         }
@@ -85,7 +85,7 @@ class SlideAdapter(
         bind.root.setOnLongClickListener {
             setLongClickPopup(bind.root.context, it, position)
         }
-        if (bind is HolderRectSlideBinding) {
+        if (bind is HolderSquareSlideBinding) {
             bind.slideIndex = position + 1
             bind.squareSlide = slide as SquareSlide
         }
