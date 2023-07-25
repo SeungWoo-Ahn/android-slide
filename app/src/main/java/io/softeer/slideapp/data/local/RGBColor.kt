@@ -1,11 +1,12 @@
 package io.softeer.slideapp.data.local
 
+import com.google.gson.annotations.SerializedName
 import java.util.Random
 
 data class RGBColor(
-    val r: Int,
-    val g: Int,
-    val b: Int,
+    @SerializedName("R") val r: Int,
+    @SerializedName("G") val g: Int,
+    @SerializedName("B") val b: Int,
 ) {
     override fun toString(): String {
         return "R: $r, G: $g, B: $b"

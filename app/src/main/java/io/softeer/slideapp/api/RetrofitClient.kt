@@ -1,4 +1,4 @@
-package io.softeer.slideapp.remote
+package io.softeer.slideapp.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = ""
+    private const val BASE_URL = "https://public.codesquad.kr/jk/softeer-bootcamp/"
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(
@@ -22,5 +22,9 @@ object RetrofitClient {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    val slideService : SlideApi by lazy {
+        getRetrofit.create(SlideApi::class.java)
     }
 }

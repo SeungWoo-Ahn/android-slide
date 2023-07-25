@@ -20,10 +20,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
 class SlideAdapter(
+    private val slideList: MutableList<Slide>,
     private val onItemClick: (Slide) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchListener {
 
-    private val slideList: MutableList<Slide> = mutableListOf()
     private val currentPosition = MutableStateFlow(0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -56,9 +56,7 @@ class SlideAdapter(
         }
     }
 
-    fun addSlide(slide: Slide, callback: (Slide) -> Unit) {
-        slideList.add(slide)
-        callback(slide)
+    fun addSlide() {
         currentPosition.value = currentPosition.value + 1
         notifyItemInserted(itemCount)
     }
