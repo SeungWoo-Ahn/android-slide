@@ -92,9 +92,16 @@ class SlideViewModel(
 
     fun onLoadSlide(): Boolean {
         viewModelScope.launch {
-            val remoteSlide = repositoryImpl.getRemoteRandomSlide()
+            var remoteSlide = repositoryImpl.getRemoteRandomSlide()
             if (remoteSlide != null) {
-                addNewSlide(remoteSlide)
+                if (remoteSlide is ImageSlide) {
+                    remoteSlide.url?.let {
+                        remoteSlide = (remoteSlide as ImageSlide).copy(
+                            imageSource = imgManager.getImageByteArrayFromUrl(it)
+                        )
+                    }
+                }
+                addNewSlide(remoteSlide!!)
             }
         }
         return true

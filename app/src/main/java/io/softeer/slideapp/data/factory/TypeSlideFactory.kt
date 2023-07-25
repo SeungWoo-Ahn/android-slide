@@ -14,7 +14,7 @@ class TypeSlideFactory : SlideFactory() {
             }
 
             Image -> {
-                ImageSlide(createSlideUuid(), null, createSlideAlpha())
+                ImageSlide(createSlideUuid(), null, null, createSlideAlpha())
             }
         }
     }
