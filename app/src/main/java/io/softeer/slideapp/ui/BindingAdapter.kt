@@ -24,6 +24,8 @@ import io.softeer.slideapp.util.DoubleClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.max
+import kotlin.math.min
 
 @BindingAdapter("isSelect")
 fun setSelectStatus(view: View, status: Boolean) {
@@ -115,5 +117,18 @@ fun setSlideImage(view: ImageView, source: ByteArray?, alpha: Int?) {
                 })
             }
         }
+    }
+}
+
+@BindingAdapter("setViewModel")
+fun setCustomViewModel(view: DrawingView, viewModel: SlideViewModel) {
+    view.setViewModel(viewModel)
+}
+
+@BindingAdapter("onColorChange", "drawingView")
+fun setOnColorChange(view: View, change: () -> Unit, drawingView: DrawingView) {
+    view.setOnClickListener {
+        change()
+        drawingView.invalidate()
     }
 }

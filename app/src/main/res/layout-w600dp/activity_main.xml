@@ -84,13 +84,14 @@
             android:onClick="@{v -> viewModel.changeSlideStatus(true)}"/>
 
         <io.softeer.slideapp.ui.DrawingView
+            android:id="@+id/v_drawing"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@id/v_center"
             app:layout_constraintBottom_toBottomOf="@id/v_center"
             app:layout_constraintStart_toStartOf="@id/v_center"
             app:layout_constraintEnd_toEndOf="@id/v_center"
-            app:defaultDrawingColor="@color/purple_700"
+            setViewModel="@{viewModel}"
             android:visibility="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Drawing ? 0 : 8}"/>
 
         <TextView
@@ -120,7 +121,8 @@
             app:layout_constraintTop_toBottomOf="@id/tv_background_text"
             android:enabled="@{viewModel.slideSelect &amp;&amp; viewModel.slideType != SlideType.Image}"
             android:text="@{viewModel.slideSelect &amp;&amp; viewModel.slideType != SlideType.Image ? viewModel.slideHexColor : @string/str_empty}"
-            android:onClick="@{v -> viewModel.changeSlideColor()}"
+            onColorChange="@{viewModel.changeSlideColor}"
+            drawingView="@{vDrawing}"
             slideColor="@{viewModel.slideHexColor}"
             tools:text="0xFFCC00"/>
 

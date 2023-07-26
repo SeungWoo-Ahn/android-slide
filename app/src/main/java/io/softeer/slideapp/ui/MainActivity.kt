@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.ActivityMainBinding
 import io.softeer.slideapp.util.DoubleClickListener
+import kotlinx.coroutines.flow.collect
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,15 +36,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    private lateinit var bind : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bind : ActivityMainBinding = DataBindingUtil.setContentView(this,
-            R.layout.activity_main
-        )
-        bind.viewModel = viewModel
-        bind.activity = this
-        bind.lifecycleOwner = this
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        bind.apply {
+            viewModel = this@MainActivity.viewModel
+            activity = this@MainActivity
+            lifecycleOwner = this@MainActivity
+        }
     }
 
     fun launchActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
