@@ -1,9 +1,12 @@
 package io.softeer.slideapp.manager
 
 import io.softeer.slideapp.data.factory.TypeSlideFactory
+import io.softeer.slideapp.data.local.Point
+import io.softeer.slideapp.data.model.DrawingSlide
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.data.model.Slide
+import io.softeer.slideapp.data.model.SlideWithColor
 
 class SlideManager {
 
@@ -19,7 +22,7 @@ class SlideManager {
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        if (currentSlide is SquareSlide) {
+        if (currentSlide is SlideWithColor) {
             currentSlide.color = factory.createSlideColor()
         }
         return currentSlide
@@ -42,4 +45,13 @@ class SlideManager {
         return currentSlide
     }
 
+    fun saveSlidePoints(currentSlide: Slide, points: MutableList<Point>): Slide {
+        return currentSlide.apply {
+            if (this is DrawingSlide) {
+                this.points = points
+                this.isEditable = false
+                this.isSelect = true
+            }
+        }
+    }
 }

@@ -5,12 +5,13 @@ import androidx.lifecycle.viewModelScope
 import io.softeer.slideapp.api.RetrofitClient
 import io.softeer.slideapp.util.ItemTouchHelperCallback
 import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.local.Point
+import io.softeer.slideapp.data.model.DrawingSlide
 import io.softeer.slideapp.manager.ImageManger
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SlideWithColor
-import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.data.repository.SlideRepositoryImpl
 import io.softeer.slideapp.data.repository.local.LocalDB
 import io.softeer.slideapp.data.repository.local.LocalDataSource
@@ -35,6 +36,8 @@ class SlideViewModel(
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
     val slideImgSource = MutableStateFlow<ByteArray?>(null)
+    private val slidePoints = MutableStateFlow<List<Point>?>(null)
+    val slideEditable = MutableStateFlow(true)
     val adapter = SlideAdapter(repositoryImpl.getAllLocalSlides(),::onSlideClick)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
@@ -46,6 +49,8 @@ class SlideViewModel(
             slideSelect.value = it.isSelect
             slideHexColor.value = if (it is SlideWithColor) it.getHexColorStr() else null
             slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource else null
+            slidePoints.value = if (it is DrawingSlide) it.points else null
+            slideEditable.value = if (it is DrawingSlide) it.isEditable else false
         }
     }
 
@@ -55,7 +60,7 @@ class SlideViewModel(
         }
     }
 
-    fun changeSlideColor() {
+    val changeSlideColor = fun() {
         currentSlide.value?.let {
             collectSlide(manager.changeSlideColor(it))
             adapter.notifyCurrentItemChanged()
@@ -114,6 +119,12 @@ class SlideViewModel(
             repositoryImpl.addLocalSlide(it)
             adapter.addSlide()
             collectSlide(it)
+        }
+    }
+
+    fun saveSlidePoints(points: MutableList<Point>) {
+        currentSlide.value?.let {
+            collectSlide(manager.saveSlidePoints(it, points))
         }
     }
 }
