@@ -127,29 +127,29 @@ class SlideAdapter(
         return true
     }
 
-    override fun onItemMove(from_position: Int, to_position: Int): Boolean {
-        if (currentPosition.value == from_position) {
-            currentPosition.value = to_position
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        if (currentPosition.value == fromPosition) {
+            currentPosition.value = toPosition
         }
-        else if (currentPosition.value == to_position) {
-            currentPosition.value = from_position
+        else if (currentPosition.value == toPosition) {
+            currentPosition.value = fromPosition
         }
-        moveSlideItem(from_position, to_position, false)
+        moveSlideItem(fromPosition, toPosition, false)
         return true
     }
 
-    private fun moveSlideItem(from_position: Int, to_position: Int, needRange: Boolean) {
-        val targetSlide = slideList[from_position]
-        slideList.removeAt(from_position)
-        slideList.add(to_position, targetSlide)
-        notifyItemMoved(from_position, to_position)
+    private fun moveSlideItem(fromPosition: Int, toPosition: Int, needRange: Boolean) {
+        val targetSlide = slideList[fromPosition]
+        slideList.removeAt(fromPosition)
+        slideList.add(toPosition, targetSlide)
+        notifyItemMoved(fromPosition, toPosition)
         if (needRange) {
-            val startPos = if (from_position > to_position) to_position else from_position
-            notifyItemRangeChanged(startPos, abs(from_position - to_position) + 1)
+            val startPos = if (fromPosition > toPosition) toPosition else fromPosition
+            notifyItemRangeChanged(startPos, abs(fromPosition - toPosition) + 1)
         }
         if (!needRange) {
-            notifyItemChanged(from_position)
-            notifyItemChanged(to_position)
+            notifyItemChanged(fromPosition)
+            notifyItemChanged(toPosition)
         }
     }
 }
