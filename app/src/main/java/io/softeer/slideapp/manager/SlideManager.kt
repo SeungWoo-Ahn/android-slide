@@ -13,30 +13,35 @@ class SlideManager {
     }
 
     fun changeSlideStatus(currentSlide: Slide, status: Boolean): Slide {
-        currentSlide.isSelect = status
-        return currentSlide
+        return currentSlide.apply {
+            this.isSelect = status
+        }
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        currentSlide.color = factory.changeOnlySlideColor(currentSlide)
-        return currentSlide
+        return currentSlide.apply {
+            this.color = factory.changeOnlySlideColor(this)
+        }
     }
 
     fun increaseSlideAlpha(currentSlide: Slide): Slide {
-        currentSlide.color = factory.increaseSlideColorAlpha(currentSlide)
-        return currentSlide
+        return currentSlide.apply {
+            this.color = factory.increaseSlideColorAlpha(this)
+        }
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        currentSlide.color = factory.decreaseSlideColorAlpha(currentSlide)
-        return currentSlide
+        return currentSlide.apply {
+            this.color = factory.decreaseSlideColorAlpha(this)
+        }
     }
 
     fun changeSlideImageSource(currentSlide: Slide, imageByteArray: ByteArray): Slide {
-        if (currentSlide is ImageSlide) {
-            currentSlide.imageSource = factory.changeSlideImage(imageByteArray)
+        return currentSlide.apply {
+            if (this is ImageSlide) {
+                this.imageSource = factory.changeSlideImage(imageByteArray)
+            }
         }
-        return currentSlide
     }
 
 }
