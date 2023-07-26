@@ -23,7 +23,7 @@ class TypeSlideFactory : SlideFactory() {
             }
 
             Drawing -> {
-                DrawingSlide(createSlideUuid(), createSlideColor(), createSlideAlpha())
+                DrawingSlide(createSlideUuid(), createSlideColor(), 10)
             }
         }
     }
