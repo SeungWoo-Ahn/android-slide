@@ -5,9 +5,9 @@ import io.softeer.slideapp.data.local.RGBColor
 
 data class DrawingSlide(
     override val id: String,
-    var color: RGBColor,
+    override var color: RGBColor,
     override var alpha: Int
-) : Slide {
+) : SlideWithColor() {
     override val type = SlideType.Drawing
     override var isSelect = false
 }

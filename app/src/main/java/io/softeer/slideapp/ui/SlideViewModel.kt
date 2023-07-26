@@ -9,6 +9,7 @@ import io.softeer.slideapp.manager.ImageManger
 import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
+import io.softeer.slideapp.data.model.SlideWithColor
 import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.data.repository.SlideRepositoryImpl
 import io.softeer.slideapp.data.repository.local.LocalDB
@@ -43,7 +44,7 @@ class SlideViewModel(
             slideType.value = it.type
             slideAlpha.value = it.alpha
             slideSelect.value = it.isSelect
-            slideHexColor.value = if (it is SquareSlide) it.getHexColorStr() else null
+            slideHexColor.value = if (it is SlideWithColor) it.getHexColorStr() else null
             slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource else null
         }
     }
@@ -102,14 +103,14 @@ class SlideViewModel(
                         )
                     }
                 }
-                addNewSlide(remoteSlide!!)
+                addNewSlide(remoteSlide)
             }
         }
         return true
     }
 
-    private fun addNewSlide(newSlide: Slide) {
-        newSlide.let {
+    private fun addNewSlide(newSlide: Slide?) {
+        newSlide?.let {
             repositoryImpl.addLocalSlide(it)
             adapter.addSlide()
             collectSlide(it)
