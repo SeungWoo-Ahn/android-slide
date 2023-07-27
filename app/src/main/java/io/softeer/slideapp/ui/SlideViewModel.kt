@@ -35,12 +35,15 @@ class SlideViewModel(
     val slidePoints = MutableStateFlow<List<Point>?>(null)
     val slideEditable = MutableStateFlow(true)
     val adapter = SlideAdapter(::onSlideClick).apply {
-        resetAdapter(repository.getAllLocalSlides())
+        resetAdapter(repository.getAllLocalSlides(), 0)
     }
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
     private var restoreSlides: List<Slide>?
         get() = savedStateHandle[RESTORE_KEY]
         set(value) = savedStateHandle.set(RESTORE_KEY, value)
+    private var restoreIndex: Int?
+        get() = savedStateHandle[RESTORE_INDEX_KEY]
+        set(value) = savedStateHandle.set(RESTORE_INDEX_KEY, value)
 
     private fun collectSlide(slide: Slide) {
         slide.let {
@@ -139,21 +142,24 @@ class SlideViewModel(
         slideImgSource.value = null
         slidePoints.value = null
         slideEditable.value = false
-        adapter.resetAdapter(repository.getAllLocalSlides())
+        adapter.resetAdapter(repository.getAllLocalSlides(), 0)
     }
 
     fun saveSlideList() {
-        restoreSlides = repository.getAllLocalSlides()
+        restoreSlides = adapter.getSlideList()
+        restoreIndex = adapter.getCurrentPosition()
     }
 
     fun restoreSlideList() {
         restoreSlides?.let {
-            collectSlide(it[0])
-            adapter.resetAdapter(it)
+            val position = restoreIndex ?: 0
+            collectSlide(it[position])
+            adapter.resetAdapter(it, position)
         }
     }
 
     companion object {
         private const val RESTORE_KEY = "restore_slides"
+        private const val RESTORE_INDEX_KEY = "restore_index"
     }
 }

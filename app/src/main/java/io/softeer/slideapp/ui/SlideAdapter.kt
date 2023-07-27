@@ -83,10 +83,14 @@ class SlideAdapter(
         return slideList.toList()
     }
 
-    fun resetAdapter(slides: List<Slide>) {
+    fun getCurrentPosition(): Int {
+        return currentPosition.value
+    }
+
+    fun resetAdapter(slides: List<Slide>, position: Int) {
         slideList.clear()
         slideList.addAll(slides)
-        currentPosition.value = 0
+        currentPosition.value = position
         notifyDataSetChanged()
     }
 
