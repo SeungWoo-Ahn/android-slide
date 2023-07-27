@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="@id/v_center"
             app:layout_constraintEnd_toEndOf="@id/v_center"
             setViewModel="@{viewModel}"
-            android:visibility="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Drawing ? 0 : 8}"/>
+            showDrawingView="@{viewModel.currentSlide != null &amp;&amp; viewModel.slideType == SlideType.Drawing}"/>
 
         <TextView
             android:id="@+id/tv_background_text"

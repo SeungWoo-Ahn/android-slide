@@ -48,7 +48,7 @@ class SlideManager {
     fun saveSlidePoints(currentSlide: Slide, points: MutableList<Point>): Slide {
         return currentSlide.apply {
             if (this is DrawingSlide) {
-                this.points = points
+                this.points = points.toList()
                 this.isEditable = false
                 this.isSelect = true
             }
