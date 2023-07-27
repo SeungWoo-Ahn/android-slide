@@ -122,3 +122,20 @@ Android 학습 프로젝트 #2
 #### 실행화면
 <img width="532" alt="스크린샷 2023-07-27 오전 10 14 15" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/faadd3a5-6ed7-4466-b9da-ad3d6518fc1f">
 
+
+### 상태 저장하기
+
+1. SlideFile 객체
+   1) Slide객체의 리스트를 담는 SlideFile 객체 생성
+   2) LocalDB에 SlideFile의 Map을 둬서 새 파일이 만들어지면 현재 파일을 저장하고 화면을 갱신한다
+2. SavedStateHandle
+   1) 현재 Slide 리스트와 adapter의 현재 포지션을 SavedStateHandle에 저장한다
+   2) onPause 시점에 저장하고 onResume 시점에 복원한다
+   3) Slide 관련 객체들은 Parcelable로 직렬화를 구현하여 저장한다
+  
+
+#### 실행화면
+https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/d8eadfa8-c121-4877-b59e-4fe34b7717c5
+
+
+
