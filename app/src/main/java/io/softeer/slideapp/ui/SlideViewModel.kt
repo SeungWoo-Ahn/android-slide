@@ -1,8 +1,8 @@
 package io.softeer.slideapp.ui
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.softeer.slideapp.api.RetrofitClient
 import io.softeer.slideapp.util.ItemTouchHelperCallback
 import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.data.local.Point
@@ -12,22 +12,18 @@ import io.softeer.slideapp.manager.SlideManager
 import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SlideWithColor
-import io.softeer.slideapp.data.repository.SlideRepositoryImpl
-import io.softeer.slideapp.data.repository.local.LocalDB
-import io.softeer.slideapp.data.repository.local.LocalDataSource
-import io.softeer.slideapp.data.repository.remote.RemoteDataSource
+import io.softeer.slideapp.data.repository.SlideRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SlideViewModel(
-    private val manager: SlideManager = SlideManager(),
-    private val imgManager: ImageManger = ImageManger(),
-    private val repositoryImpl: SlideRepositoryImpl = SlideRepositoryImpl(
-        LocalDataSource(LocalDB()),
-        RemoteDataSource(RetrofitClient.slideService)
-    )
+    private val savedStateHandle: SavedStateHandle,
+    private val manager: SlideManager,
+    private val imgManager: ImageManger,
+    private val repository: SlideRepository
 ) : ViewModel() {
+
 
     private val _currentSlide = MutableStateFlow<Slide?>(null)
     val currentSlide : StateFlow<Slide?> = _currentSlide
@@ -39,9 +35,12 @@ class SlideViewModel(
     val slidePoints = MutableStateFlow<List<Point>?>(null)
     val slideEditable = MutableStateFlow(true)
     val adapter = SlideAdapter(::onSlideClick).apply {
-        resetAdapter(repositoryImpl.getAllLocalSlides())
+        resetAdapter(repository.getAllLocalSlides())
     }
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
+    private var restoreSlides: List<Slide>?
+        get() = savedStateHandle[RESTORE_KEY]
+        set(value) = savedStateHandle.set(RESTORE_KEY, value)
 
     private fun collectSlide(slide: Slide) {
         slide.let {
@@ -101,7 +100,7 @@ class SlideViewModel(
 
     fun onLoadSlide(): Boolean {
         viewModelScope.launch {
-            var remoteSlide = repositoryImpl.getRemoteRandomSlide()
+            var remoteSlide = repository.getRemoteRandomSlide()
             if (remoteSlide != null) {
                 if (remoteSlide is ImageSlide) {
                     remoteSlide.url?.let {
@@ -130,8 +129,8 @@ class SlideViewModel(
     }
 
     fun addNewFile() {
-        repositoryImpl.saveSlides(adapter.getSlideList())
-        repositoryImpl.changeFile()
+        repository.saveSlides(adapter.getSlideList())
+        repository.changeFile()
         _currentSlide.value = null
         slideType.value = null
         slideHexColor.value = null
@@ -140,6 +139,21 @@ class SlideViewModel(
         slideImgSource.value = null
         slidePoints.value = null
         slideEditable.value = false
-        adapter.resetAdapter(repositoryImpl.getAllLocalSlides())
+        adapter.resetAdapter(repository.getAllLocalSlides())
+    }
+
+    fun saveSlideList() {
+        restoreSlides = repository.getAllLocalSlides()
+    }
+
+    fun restoreSlideList() {
+        restoreSlides?.let {
+            collectSlide(it[0])
+            adapter.resetAdapter(it)
+        }
+    }
+
+    companion object {
+        private const val RESTORE_KEY = "restore_slides"
     }
 }
