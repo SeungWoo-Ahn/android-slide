@@ -1,7 +1,6 @@
 package io.softeer.slideapp.manager
 
 import io.softeer.slideapp.data.RGBColor
-import io.softeer.slideapp.enum.SlideType
 import io.softeer.slideapp.factory.TypeSlideFactory
 import io.softeer.slideapp.model.Slide
 import org.junit.Assert.*
@@ -16,7 +15,7 @@ class SlideChangeAlphaTest{
 
     @Before
     fun setUp() {
-        factory.createSlide(SlideType.Rect)
+        factory.createSlide()
     }
 
     @Test
