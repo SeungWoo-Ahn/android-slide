@@ -104,3 +104,21 @@ Android 학습 프로젝트 #2
 #### 실행화면
 <img width="533" alt="스크린샷 2023-07-25 오후 1 26 22" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/e56740f9-5de5-461a-8e33-f7384f0eb7d2">
 
+
+
+### 드로잉 표시하기
+
+1. 드로잉 슬라이드 추가
+   1) 새로운 SlideType(enum)을 추가하고 그리기용 DrawingSlide를 추가했다
+   2) DrawingSlide에는 isEditable(편집 가능)과 points(그린 좌표 리스트) 속성이 추가된다
+   3) SquareSlide와 color를 사용해야해서 Slide(interface)를 상속받은 SlideWithColor(추상 클래스)를 상속했다
+2. 드로잉 뷰 (커스텀 뷰)
+   1) 드로잉 뷰를 구현하기 위해 View를 상속받는 DrawingView란 커스텀 뷰를 만들었다
+   2) 드로잉 뷰가 보여질 때, 편집 가능한지/ 좌표 목록이 있는지/ 선택 됐는지를 기준으로 뷰를 그려준다
+   3) 화면 터치시에 편집 가능하면-> 화면에 그림을 그리며 좌표를 저장하고
+   4) 편집 불가능하면 클릭 좌표에 따라 선택 여부(테두리 여부)를 설정한다
+   5) points에서 x값과 y값의 최대 최소값을 계산하여 그림 영역을 계산했다
+
+#### 실행화면
+<img width="532" alt="스크린샷 2023-07-27 오전 10 14 15" src="https://github.com/SeungWoo-Ahn/android-slide/assets/78468001/faadd3a5-6ed7-4466-b9da-ad3d6518fc1f">
+
