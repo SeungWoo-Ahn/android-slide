@@ -8,6 +8,7 @@
     <string name="str_divider">|</string>
     <string name="str_empty"> </string>
     <string name="str_add">( + )</string>
+    <string name="str_new_file">Add New File</string>
 
     <string name="str_menu_send_to_back">맨 뒤로 보내기</string>
     <string name="str_menu_send_back">뒤로 보내기</string>

@@ -6,9 +6,9 @@ interface SlideRepository {
 
     suspend fun getRemoteRandomSlide(): Slide?
 
-    fun getAllLocalSlides(): MutableList<Slide>
+    fun getAllLocalSlides(): List<Slide>
 
-    fun addLocalSlide(slide: Slide)
+    fun saveSlides(slides: List<Slide>)
 
-    fun deleteLocalSlide(slide: Slide)
+    fun changeFile()
 }

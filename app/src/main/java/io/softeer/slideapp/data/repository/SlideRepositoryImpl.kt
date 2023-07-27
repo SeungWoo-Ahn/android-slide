@@ -29,16 +29,18 @@ class SlideRepositoryImpl(
         return null
     }
 
-    override fun getAllLocalSlides(): MutableList<Slide> {
+    override fun getAllLocalSlides(): List<Slide> {
         return localDataSource.getAllSlides()
     }
 
-    override fun addLocalSlide(slide: Slide) {
-        localDataSource.addLocalSlide(slide)
+    override fun saveSlides(slides: List<Slide>) {
+        localDataSource.saveSlides(slides)
     }
 
-    override fun deleteLocalSlide(slide: Slide) {
-        localDataSource.deleteLocalSlide(slide)
+
+    override fun changeFile() {
+        localDataSource.changeFile()
     }
+
 
 }

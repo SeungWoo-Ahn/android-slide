@@ -210,6 +210,20 @@
             android:onClick="@{v -> viewModel.changeSlideAlpha(true)}"/>
 
         <TextView
+            android:id="@+id/tv_new_file"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@color/teal_200"
+            android:text="@string/str_new_file"
+            android:textColor="@color/teal_700"
+            android:textSize="@dimen/title_size"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/v_side_left"
+            app:layout_constraintBottom_toTopOf="@id/tv_add_button"
+            android:onClick="@{v -> viewModel.addNewFile()}"/>
+
+        <TextView
             android:id="@+id/tv_add_button"
             android:layout_width="0dp"
             android:layout_height="80dp"
@@ -232,7 +246,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/v_side_left"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tv_add_button"
+            app:layout_constraintBottom_toTopOf="@id/tv_new_file"
             itemHelper="@{viewModel.itemTouchHelperCallback}"
             itemDecoration="@{5}"
             android:adapter="@{viewModel.adapter}"/>

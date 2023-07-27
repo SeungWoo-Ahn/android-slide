@@ -5,15 +5,17 @@ import io.softeer.slideapp.data.model.Slide
 
 class LocalDataSource(private val localDB: LocalDB) {
 
-    fun getAllSlides(): MutableList<Slide> {
+    fun getAllSlides(): List<Slide> {
         return localDB.slides.value
     }
 
-    fun addLocalSlide(slide: Slide) {
-        localDB.addSlide(slide)
+    fun saveSlides(slides: List<Slide>) {
+        localDB.saveSlides(slides)
     }
 
-    fun deleteLocalSlide(slide: Slide) {
-        localDB.deleteSlide(slide)
+    fun changeFile() {
+        localDB.changeFile()
     }
+
+
 }

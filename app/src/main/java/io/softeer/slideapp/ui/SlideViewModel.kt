@@ -38,7 +38,9 @@ class SlideViewModel(
     val slideImgSource = MutableStateFlow<ByteArray?>(null)
     val slidePoints = MutableStateFlow<List<Point>?>(null)
     val slideEditable = MutableStateFlow(true)
-    val adapter = SlideAdapter(repositoryImpl.getAllLocalSlides(),::onSlideClick)
+    val adapter = SlideAdapter(::onSlideClick).apply {
+        resetAdapter(repositoryImpl.getAllLocalSlides())
+    }
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
     private fun collectSlide(slide: Slide) {
@@ -116,8 +118,7 @@ class SlideViewModel(
 
     private fun addNewSlide(newSlide: Slide?) {
         newSlide?.let {
-            repositoryImpl.addLocalSlide(it)
-            adapter.addSlide()
+            adapter.addSlide(it)
             collectSlide(it)
         }
     }
@@ -126,5 +127,19 @@ class SlideViewModel(
         currentSlide.value?.let {
             collectSlide(manager.saveSlidePoints(it, points))
         }
+    }
+
+    fun addNewFile() {
+        repositoryImpl.saveSlides(adapter.getSlideList())
+        repositoryImpl.changeFile()
+        _currentSlide.value = null
+        slideType.value = null
+        slideHexColor.value = null
+        slideAlpha.value = null
+        slideSelect.value = false
+        slideImgSource.value = null
+        slidePoints.value = null
+        slideEditable.value = false
+        adapter.resetAdapter(repositoryImpl.getAllLocalSlides())
     }
 }

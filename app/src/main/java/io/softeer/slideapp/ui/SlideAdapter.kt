@@ -21,25 +21,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
 class SlideAdapter(
-    private val slideList: MutableList<Slide>,
     private val onItemClick: (Slide) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchListener {
 
+    private val slideList: MutableList<Slide> = mutableListOf()
     private val currentPosition = MutableStateFlow(0)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == SlideType.Square.viewType) {
-            return SquareViewHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_square_slide, parent, false)
-            )
-        } else if(viewType == SlideType.Image.viewType) {
-            return ImageViewHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_image_slide, parent, false)
-            )
-        } else {
-            return DrawingViewHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_drawing_slide, parent, false)
-            )
+        return when (viewType) {
+            SlideType.Square.viewType -> {
+                SquareViewHolder(
+                    DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_square_slide, parent, false)
+                )
+            }
+            SlideType.Image.viewType -> {
+                ImageViewHolder(
+                    DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_image_slide, parent, false)
+                )
+            }
+            else -> {
+                DrawingViewHolder(
+                    DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.holder_drawing_slide, parent, false)
+                )
+            }
         }
     }
 
@@ -65,13 +69,25 @@ class SlideAdapter(
         }
     }
 
-    fun addSlide() {
+    fun addSlide(slide: Slide) {
+        slideList.add(slide)
         currentPosition.value = currentPosition.value + 1
         notifyItemInserted(itemCount)
     }
 
     fun notifyCurrentItemChanged() {
         notifyItemChanged(currentPosition.value)
+    }
+
+    fun getSlideList(): List<Slide> {
+        return slideList.toList()
+    }
+
+    fun resetAdapter(slides: List<Slide>) {
+        slideList.clear()
+        slideList.addAll(slides)
+        currentPosition.value = 0
+        notifyDataSetChanged()
     }
 
     inner class SquareViewHolder(private val bind: HolderSquareSlideBinding): RecyclerView.ViewHolder(bind.root) {
