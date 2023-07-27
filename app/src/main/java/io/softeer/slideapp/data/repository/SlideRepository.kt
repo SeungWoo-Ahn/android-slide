@@ -1,7 +1,6 @@
 package io.softeer.slideapp.data.repository
 
 import io.softeer.slideapp.data.model.Slide
-import io.softeer.slideapp.data.model.SquareSlide
 
 interface SlideRepository {
 
