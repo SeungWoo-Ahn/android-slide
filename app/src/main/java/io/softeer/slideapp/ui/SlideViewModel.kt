@@ -36,7 +36,7 @@ class SlideViewModel(
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
     val slideImgSource = MutableStateFlow<ByteArray?>(null)
-    private val slidePoints = MutableStateFlow<List<Point>?>(null)
+    val slidePoints = MutableStateFlow<List<Point>?>(null)
     val slideEditable = MutableStateFlow(true)
     val adapter = SlideAdapter(repositoryImpl.getAllLocalSlides(),::onSlideClick)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)

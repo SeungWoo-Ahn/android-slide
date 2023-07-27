@@ -90,6 +90,27 @@ class DrawingView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         }
     }
 
+    fun loadDrawInfo() {
+        path.reset()
+        pointedList.clear()
+        borderRect.setEmpty()
+        if (!viewModel.slideEditable.value) {
+            val slidePoints = viewModel.slidePoints.value
+            if (!slidePoints.isNullOrEmpty()) {
+                pointedList.addAll(slidePoints)
+                path.moveTo(slidePoints.first().x, slidePoints.first().y)
+                for (i in 1 until  slidePoints.size) {
+                    path.lineTo(slidePoints[i].x, slidePoints[i].y)
+                }
+                if (viewModel.slideSelect.value) {
+                    val borderSize = calculateRect()
+                    borderRect.set(borderSize[0], borderSize[1], borderSize[2], borderSize[3])
+                }
+            }
+        }
+        invalidate()
+    }
+
     private fun calculateRect(): List<Int> {
         var minX = pointedList[0].x
         var maxX = pointedList[0].x

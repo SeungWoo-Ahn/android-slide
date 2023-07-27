@@ -132,3 +132,11 @@ fun setOnColorChange(view: View, change: () -> Unit, drawingView: DrawingView) {
         drawingView.invalidate()
     }
 }
+
+@BindingAdapter("showDrawingView")
+fun setDrawingViewVisibility(view: DrawingView, needShow: Boolean) {
+    view.visibility = if (needShow) View.VISIBLE else View.GONE
+    if (needShow) {
+        view.loadDrawInfo()
+    }
+}
