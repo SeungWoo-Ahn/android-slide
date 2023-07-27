@@ -24,8 +24,6 @@ import io.softeer.slideapp.util.DoubleClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.max
-import kotlin.math.min
 
 @BindingAdapter("isSelect")
 fun setSelectStatus(view: View, status: Boolean) {

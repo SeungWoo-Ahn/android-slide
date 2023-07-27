@@ -4,7 +4,6 @@ import io.softeer.slideapp.data.factory.TypeSlideFactory
 import io.softeer.slideapp.data.local.Point
 import io.softeer.slideapp.data.model.DrawingSlide
 import io.softeer.slideapp.data.model.ImageSlide
-import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SlideWithColor
 

@@ -1,7 +1,6 @@
 package io.softeer.slideapp.data.local
 
 import com.google.gson.annotations.SerializedName
-import java.util.Random
 
 data class RGBColor(
     @SerializedName("R") val r: Int,

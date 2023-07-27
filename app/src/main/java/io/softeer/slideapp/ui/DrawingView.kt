@@ -8,11 +8,9 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import io.softeer.slideapp.data.local.Point
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.max
 import kotlin.math.min
 
