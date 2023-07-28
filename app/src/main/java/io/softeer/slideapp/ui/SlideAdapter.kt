@@ -25,6 +25,37 @@ class SlideAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchListener {
 
     private val currentPosition = MutableStateFlow(0)
+    private lateinit var popupMenu: PopupMenu
+    private val makePopup: (Context ,View, Int) -> PopupMenu = { context, view, position ->
+        PopupMenu(context, view).apply {
+            this.menuInflater.inflate(R.menu.menu_slide_popup, this.menu)
+            this.setOnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.menu_send_to_back -> {
+                        if (position != itemCount - 1) {
+                            moveSlideItem(position, itemCount - 1, true)
+                        }
+                    }
+                    R.id.menu_send_back -> {
+                        if (position != itemCount - 1) {
+                            moveSlideItem(position, position + 1, false)
+                        }
+                    }
+                    R.id.menu_send_front -> {
+                        if (position != 0) {
+                            moveSlideItem(position, position - 1, false)
+                        }
+                    }
+                    R.id.menu_send_to_front -> {
+                        if (position != 0) {
+                            moveSlideItem(position, 0, true)
+                        }
+                    }
+                }
+                true
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == SlideType.Square.viewType) {
@@ -83,7 +114,7 @@ class SlideAdapter(
             currentPosition.value = position
         }
         bind.root.setOnLongClickListener {
-            setLongClickPopup(bind.root.context, it, position)
+            setLongClickPopup(bind.root.context ,it, position)
         }
         if (bind is HolderSquareSlideBinding) {
             bind.slideIndex = position + 1
@@ -96,34 +127,9 @@ class SlideAdapter(
     }
 
     private fun setLongClickPopup(context: Context, view: View, position: Int): Boolean {
-        val popup = PopupMenu(context, view)
-        popup.menuInflater.inflate(R.menu.menu_slide_popup, popup.menu)
-        popup.setOnMenuItemClickListener { item ->
-            when(item.itemId) {
-                R.id.menu_send_to_back -> {
-                    if (position != itemCount - 1) {
-                        moveSlideItem(position, itemCount - 1, true)
-                    }
-                }
-                R.id.menu_send_back -> {
-                    if (position != itemCount - 1) {
-                        moveSlideItem(position, position + 1, false)
-                    }
-                }
-                R.id.menu_send_front -> {
-                    if (position != 0) {
-                        moveSlideItem(position, position - 1, false)
-                    }
-                }
-                R.id.menu_send_to_front -> {
-                    if (position != 0) {
-                        moveSlideItem(position, 0, true)
-                    }
-                }
-            }
-            true
+        popupMenu = makePopup(context, view, position).also {
+            it.show()
         }
-        popup.show()
         return true
     }
 
@@ -146,8 +152,7 @@ class SlideAdapter(
         if (needRange) {
             val startPos = if (fromPosition > toPosition) toPosition else fromPosition
             notifyItemRangeChanged(startPos, abs(fromPosition - toPosition) + 1)
-        }
-        if (!needRange) {
+        } else {
             notifyItemChanged(fromPosition)
             notifyItemChanged(toPosition)
         }
