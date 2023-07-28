@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         bind.lifecycleOwner = this
     }
 
-    fun goActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
+    fun launchActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
         launcherResponse = onResponse
         resultLauncher.launch(intent)
     }

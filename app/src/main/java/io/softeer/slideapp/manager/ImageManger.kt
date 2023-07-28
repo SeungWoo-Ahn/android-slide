@@ -21,7 +21,7 @@ class ImageManger {
             type = "image/*"
             action = Intent.ACTION_GET_CONTENT
         }
-        activity.goActivityForResult(intent) {
+        activity.launchActivityForResult(intent) {
             val imageUri = it?.data
             if (imageUri != null) {
                 onSuccess(imageUriToByteArray(activity, imageUri))
