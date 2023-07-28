@@ -14,35 +14,35 @@ class SlideManager {
     }
 
     fun changeSlideStatus(currentSlide: Slide, status: Boolean): Slide {
-        return currentSlide.apply {
-            this.isSelect = status
+        return currentSlide.also {
+            it.isSelect = status
         }
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        return currentSlide.apply {
-            if (this is SquareSlide) {
-                this.color = factory.createSlideColor()
+        return currentSlide.also {
+            if (it is SquareSlide) {
+                it.color = factory.createSlideColor()
             }
         }
     }
 
     fun increaseSlideAlpha(currentSlide: Slide): Slide {
-        return currentSlide.apply {
-            this.alpha = factory.increaseSlideAlpha(this)
+        return currentSlide.also {
+            it.alpha = factory.increaseSlideAlpha(it)
         }
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        return currentSlide.apply {
-            this.alpha = factory.decreaseSlideAlpha(this)
+        return currentSlide.also {
+            it.alpha = factory.decreaseSlideAlpha(it)
         }
     }
 
     fun changeSlideImageSource(currentSlide: Slide, imageByteArray: ByteArray): Slide {
-        return currentSlide.apply {
-            if (this is ImageSlide) {
-                this.imageSource = imageByteArray
+        return currentSlide.also {
+            if (it is ImageSlide) {
+                it.imageSource = imageByteArray
             }
         }
     }
