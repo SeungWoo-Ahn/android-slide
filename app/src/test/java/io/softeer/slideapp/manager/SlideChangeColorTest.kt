@@ -1,14 +1,14 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.enums.SlideType
-import io.softeer.slideapp.factory.TypeSlideFactory
+import io.softeer.slideapp.data.enums.SlideType
+import io.softeer.slideapp.data.factory.TypeSlideFactory
 import org.junit.Assert.*
 import org.junit.Test
 
 class SlideChangeColorTest{
 
     private val manager = SlideManager()
-    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Rect)
+    private val currentSlide = TypeSlideFactory().createSlide(SlideType.Square)
 
     @Test
     fun changeSlideColor_toRandomColor_notEquals() {

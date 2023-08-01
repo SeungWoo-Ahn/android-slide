@@ -1,6 +1,6 @@
-package io.softeer.slideapp.enums
+package io.softeer.slideapp.data.enums
 
 enum class SlideType(val viewType: Int) {
-    Rect(viewType = 0),
+    Square(viewType = 0),
     Image(viewType = 1)
 }

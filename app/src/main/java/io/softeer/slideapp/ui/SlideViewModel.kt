@@ -1,20 +1,30 @@
-package io.softeer.slideapp.viewmodel
+package io.softeer.slideapp.ui
 
 import androidx.lifecycle.ViewModel
-import io.softeer.slideapp.MainActivity
-import io.softeer.slideapp.adapter.ItemTouchHelperCallback
-import io.softeer.slideapp.adapter.SlideAdapter
-import io.softeer.slideapp.enums.SlideType
+import androidx.lifecycle.viewModelScope
+import io.softeer.slideapp.api.RetrofitClient
+import io.softeer.slideapp.util.ItemTouchHelperCallback
+import io.softeer.slideapp.data.enums.SlideType
 import io.softeer.slideapp.manager.ImageManger
 import io.softeer.slideapp.manager.SlideManager
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.Slide
+import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.data.repository.SlideRepositoryImpl
+import io.softeer.slideapp.data.repository.local.LocalDB
+import io.softeer.slideapp.data.repository.local.LocalDataSource
+import io.softeer.slideapp.data.repository.remote.RemoteDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class SlideViewModel(
     private val manager: SlideManager = SlideManager(),
-    private val imgManager: ImageManger = ImageManger()
+    private val imgManager: ImageManger = ImageManger(),
+    private val repositoryImpl: SlideRepositoryImpl = SlideRepositoryImpl(
+        LocalDataSource(LocalDB()),
+        RemoteDataSource(RetrofitClient.slideService)
+    )
 ) : ViewModel() {
 
     private val _currentSlide = MutableStateFlow<Slide?>(null)
@@ -24,19 +34,17 @@ class SlideViewModel(
     val slideAlpha = MutableStateFlow<Int?>(null)
     val slideSelect = MutableStateFlow(false)
     val slideImgSource = MutableStateFlow<ByteArray?>(null)
-    val adapter = SlideAdapter(::onSlideClick)
+    val adapter = SlideAdapter(repositoryImpl.getAllLocalSlides(),::onSlideClick)
     val itemTouchHelperCallback = ItemTouchHelperCallback(adapter)
 
-    private fun collectSlide(slide:  Slide) {
+    private fun collectSlide(slide: Slide) {
         slide.let {
             _currentSlide.value = it
             slideType.value = it.type
-            slideHexColor.value = it.color.getHexColorStr()
-            slideAlpha.value = it.color.alpha
+            slideAlpha.value = it.alpha
             slideSelect.value = it.isSelect
-            if (it is ImageSlide) {
-                slideImgSource.value = if (it.imageSource != null) it.imageSource!!.imgBinary else null
-            }
+            slideHexColor.value = if (it is SquareSlide) it.getHexColorStr() else null
+            slideImgSource.value = if (it is ImageSlide && it.imageSource != null) it.imageSource else null
         }
     }
 
@@ -79,7 +87,30 @@ class SlideViewModel(
     }
 
     fun onAddSlide() {
-        adapter.addSlide(manager.createSlideInstance()) {
+       addNewSlide(manager.createSlideInstance())
+    }
+
+    fun onLoadSlide(): Boolean {
+        viewModelScope.launch {
+            var remoteSlide = repositoryImpl.getRemoteRandomSlide()
+            if (remoteSlide != null) {
+                if (remoteSlide is ImageSlide) {
+                    remoteSlide.url?.let {
+                        remoteSlide = (remoteSlide as ImageSlide).copy(
+                            imageSource = imgManager.getImageByteArrayFromUrl(it)
+                        )
+                    }
+                }
+                addNewSlide(remoteSlide!!)
+            }
+        }
+        return true
+    }
+
+    private fun addNewSlide(newSlide: Slide) {
+        newSlide.let {
+            repositoryImpl.addLocalSlide(it)
+            adapter.addSlide()
             collectSlide(it)
         }
     }

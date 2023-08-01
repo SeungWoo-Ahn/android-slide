@@ -1,4 +1,4 @@
-package io.softeer.slideapp.viewmodel
+package io.softeer.slideapp.ui
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import io.softeer.slideapp.R
-import io.softeer.slideapp.adapter.ItemTouchHelperCallback
+import io.softeer.slideapp.util.ItemTouchHelperCallback
 import io.softeer.slideapp.util.DoubleClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,9 +32,11 @@ fun setSelectStatus(view: View, status: Boolean) {
 
 @BindingAdapter("slideColor")
 fun setSlideBackground(view: View, hexColor: String?) {
-    hexColor?.let {
-        view.setBackgroundColor(Color.parseColor("#$it"))
+    if (hexColor == null) {
+        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
+        return
     }
+    view.setBackgroundColor(Color.parseColor("#$hexColor"))
 }
 
 @BindingAdapter("itemDecoration")

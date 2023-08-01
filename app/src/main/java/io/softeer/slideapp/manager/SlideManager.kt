@@ -1,8 +1,9 @@
 package io.softeer.slideapp.manager
 
-import io.softeer.slideapp.factory.TypeSlideFactory
-import io.softeer.slideapp.model.ImageSlide
-import io.softeer.slideapp.model.Slide
+import io.softeer.slideapp.data.factory.TypeSlideFactory
+import io.softeer.slideapp.data.model.ImageSlide
+import io.softeer.slideapp.data.model.SquareSlide
+import io.softeer.slideapp.data.model.Slide
 
 class SlideManager {
 
@@ -13,33 +14,35 @@ class SlideManager {
     }
 
     fun changeSlideStatus(currentSlide: Slide, status: Boolean): Slide {
-        return currentSlide.apply {
-            this.isSelect = status
+        return currentSlide.also {
+            it.isSelect = status
         }
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        return currentSlide.apply {
-            this.color = factory.changeOnlySlideColor(this)
+        return currentSlide.also {
+            if (it is SquareSlide) {
+                it.color = factory.createSlideColor()
+            }
         }
     }
 
     fun increaseSlideAlpha(currentSlide: Slide): Slide {
-        return currentSlide.apply {
-            this.color = factory.increaseSlideColorAlpha(this)
+        return currentSlide.also {
+            it.alpha = factory.increaseSlideAlpha(it)
         }
     }
 
     fun decreaseSlideAlpha(currentSlide : Slide): Slide {
-        return currentSlide.apply {
-            this.color = factory.decreaseSlideColorAlpha(this)
+        return currentSlide.also {
+            it.alpha = factory.decreaseSlideAlpha(it)
         }
     }
 
     fun changeSlideImageSource(currentSlide: Slide, imageByteArray: ByteArray): Slide {
-        return currentSlide.apply {
-            if (this is ImageSlide) {
-                this.imageSource = factory.changeSlideImage(imageByteArray)
+        return currentSlide.also {
+            if (it is ImageSlide) {
+                it.imageSource = imageByteArray
             }
         }
     }
