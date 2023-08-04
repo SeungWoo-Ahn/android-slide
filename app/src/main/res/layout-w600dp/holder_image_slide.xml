@@ -11,6 +11,9 @@
         <variable
             name="imageSlide"
             type="io.softeer.slideapp.data.model.ImageSlide" />
+        <variable
+            name="globalCoroutine"
+            type="io.softeer.slideapp.util.GlobalCoroutineScope" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +52,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            ioCoroutineScope="@{globalCoroutine.iOCoroutineScope}"
+            mainCoroutineScope="@{globalCoroutine.mainCoroutineScope}"
             slideImg="@{imageSlide.imageSource}"
             imgAlpha="@{imageSlide.alpha}"/>
 

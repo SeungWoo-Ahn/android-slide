@@ -11,6 +11,9 @@
         <variable
             name="activity"
             type="io.softeer.slideapp.ui.MainActivity" />
+        <variable
+            name="globalCoroutine"
+            type="io.softeer.slideapp.util.GlobalCoroutineScope" />
         <import type="io.softeer.slideapp.data.enums.SlideType"/>
     </data>
 
@@ -62,6 +65,8 @@
             app:layout_constraintVertical_bias="0.0"
             tools:src="@drawable/ic_image"
             android:visibility="@{viewModel.slideType == SlideType.Image ? 0 : 8}"
+            ioCoroutineScope="@{globalCoroutine.iOCoroutineScope}"
+            mainCoroutineScope="@{globalCoroutine.mainCoroutineScope}"
             imgAlpha="@{viewModel.slideAlpha}"
             isSelect="@{viewModel.slideSelect}"
             onDoubleClick="@{activity.imageClickListener}"

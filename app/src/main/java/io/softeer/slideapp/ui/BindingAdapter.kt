@@ -66,8 +66,8 @@ fun setDoubleClickListener(view: View, doubleClickListener: DoubleClickListener)
     view.setOnClickListener(doubleClickListener)
 }
 
-@BindingAdapter("slideImg", "imgAlpha")
-fun setSlideImage(view: ImageView, source: ByteArray?, alpha: Int?) {
+@BindingAdapter("slideImg", "imgAlpha", "ioCoroutineScope", "mainCoroutineScope")
+fun setSlideImage(view: ImageView, source: ByteArray?, alpha: Int?, ioCoroutineScope: CoroutineScope, mainCoroutineScope: CoroutineScope) {
 
     if (source == null) {
         view.setImageDrawable(
@@ -79,12 +79,12 @@ fun setSlideImage(view: ImageView, source: ByteArray?, alpha: Int?) {
         return
     }
 
-    CoroutineScope(Dispatchers.IO).launch {
+    ioCoroutineScope.launch {
         Glide.with(view)
             .asBitmap()
             .load(source)
             .apply {
-            CoroutineScope(Dispatchers.Main).launch {
+                mainCoroutineScope.launch {
                 into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(
                         resource: Bitmap,

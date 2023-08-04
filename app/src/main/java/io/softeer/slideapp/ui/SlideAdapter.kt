@@ -16,12 +16,13 @@ import io.softeer.slideapp.data.model.ImageSlide
 import io.softeer.slideapp.data.model.Slide
 import io.softeer.slideapp.data.model.SquareSlide
 import io.softeer.slideapp.databinding.HolderSquareSlideBinding
+import io.softeer.slideapp.util.GlobalCoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.abs
 
 class SlideAdapter(
     private val slideList: MutableList<Slide>,
-    private val onItemClick: (Slide) -> Unit
+    private val onItemClick: (Slide) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchListener {
 
     private val currentPosition = MutableStateFlow(0)
@@ -123,6 +124,7 @@ class SlideAdapter(
         if (bind is HolderImageSlideBinding) {
             bind.slideIndex = position + 1
             bind.imageSlide = slide as ImageSlide
+            bind.globalCoroutine = GlobalCoroutineScope
         }
     }
 

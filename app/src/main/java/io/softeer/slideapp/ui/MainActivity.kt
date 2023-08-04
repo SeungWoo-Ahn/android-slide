@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import io.softeer.slideapp.R
 import io.softeer.slideapp.databinding.ActivityMainBinding
 import io.softeer.slideapp.util.DoubleClickListener
+import io.softeer.slideapp.util.GlobalCoroutineScope
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         bind.viewModel = viewModel
         bind.activity = this
         bind.lifecycleOwner = this
+        bind.globalCoroutine = GlobalCoroutineScope
     }
 
     fun launchActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
