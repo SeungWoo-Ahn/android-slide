@@ -13,23 +13,6 @@ import java.net.URL
 
 class ImageManger {
 
-    fun pickImageFromGallery(
-        activity: MainActivity,
-        onSuccess: (ByteArray?) -> Unit
-    ) {
-        val intent = Intent().apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-        }
-        activity.launchActivityForResult(intent) {
-            val imageUri = it?.data
-            if (imageUri != null) {
-                onSuccess(imageUriToByteArray(activity, imageUri))
-            }
-        }
-
-    }
-
     suspend fun getImageByteArrayFromUrl(urlString: String): ByteArray? {
         return withContext(Dispatchers.IO) {
             try {
@@ -49,9 +32,4 @@ class ImageManger {
         }
     }
 
-    @SuppressLint("Recycle")
-    private fun imageUriToByteArray(activity: MainActivity, imageUri: Uri): ByteArray {
-        val inputStream = activity.contentResolver.openInputStream(imageUri)
-        return inputStream?.readBytes() ?: byteArrayOf()
-    }
 }

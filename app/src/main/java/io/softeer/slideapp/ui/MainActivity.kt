@@ -1,6 +1,8 @@
 package io.softeer.slideapp.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onDoubleClick(v: View?) {
-            viewModel.pickImage(this@MainActivity) {
+            pickImageFromGallery {
                 it?.let { source ->
                     viewModel.changeSlideImage(source)
                     viewModel.adapter.notifyCurrentItemChanged()
@@ -48,8 +50,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun launchActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
+    private fun launchActivityForResult(intent: Intent, onResponse: (Intent?) -> Unit) {
         launcherResponse = onResponse
         resultLauncher.launch(intent)
+    }
+
+    private fun pickImageFromGallery(
+        onSuccess: (ByteArray?) -> Unit
+    ) {
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        launchActivityForResult(intent) { imageUri ->
+            imageUri?.data?.let {
+                onSuccess(imageUriToByteArray(it))
+            }
+        }
+    }
+
+    @SuppressLint("Recycle")
+    private fun imageUriToByteArray(imageUri: Uri): ByteArray {
+        val inputStream = contentResolver.openInputStream(imageUri)
+        return inputStream?.readBytes() ?: byteArrayOf()
     }
 }

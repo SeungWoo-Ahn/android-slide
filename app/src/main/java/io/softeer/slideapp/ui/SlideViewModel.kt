@@ -78,10 +78,6 @@ class SlideViewModel(
         }
     }
 
-    fun pickImage(activity: MainActivity, onSuccess: (ByteArray?) -> Unit) {
-        imgManager.pickImageFromGallery(activity, onSuccess)
-    }
-
     fun changeSlideImage(imageByteArray: ByteArray) {
         currentSlide.value?.let {
             collectSlide(manager.changeSlideImageSource(it, imageByteArray))
@@ -112,7 +108,7 @@ class SlideViewModel(
     private fun addNewSlide(newSlide: Slide?) {
         newSlide?.let {
             repositoryImpl.addLocalSlide(it)
-            adapter.addSlide(it, {})
+            adapter.addSlide(it) {}
             collectSlide(it)
         }
     }

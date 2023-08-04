@@ -22,8 +22,10 @@ class SlideManager {
     }
 
     fun changeSlideColor(currentSlide: Slide): Slide {
-        if (currentSlide is SlideWithColor) {
-            currentSlide.color = factory.createSlideColor()
+        return currentSlide.also {
+            if (it is SlideWithColor) {
+                it.color = factory.createSlideColor()
+            }
         }
     }
 
